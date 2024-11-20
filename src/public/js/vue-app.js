@@ -3,7 +3,7 @@ new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
     data: {
-        DOMAIN: 'http://localhost:8888/',
+        DOMAIN: 'https://web-comic-3.onrender.com/',
         domain_image: 'https://img.otruyenapi.com',
         domain_cdn_read: '',
         middle_domain: '/uploads/comics/',
