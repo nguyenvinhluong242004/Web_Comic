@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuongSoSad</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="w-100">
+    <div id="app" class="mx-auto" style="max-width: 1030px;">
+        <div style="background-color: #fff;">
+            <div class="header d-flex align-items-center justify-content-between" style="height: 50px;">
+                <a :href="DOMAIN" class="p-3" style="cursor: pointer; width: 200px; font-size: 26px; font-weight: bold; color: #fff;">
+                    <!-- <i @click="goBackHome" class="bi bi-house-door-fill" style="cursor: pointer;"></i> -->
+                    LuongSoSad
+                </a>
+                <div class="btn-search-full" style="position: relative; width: 360px;">
+                    <input type="text"
+                        style="padding-left: 10px; height: 32px; font-size: 12px; width: 100%; padding-right: 30px;"
+                        id="txtInput" placeholder="Tìm truyện..." aria-label="Search">
+                    <a class="bi bi-search" @click="searchComic"
+                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 18px; color: #000;"></a>
+                </div>
+                <div class="pe-2" style="width: 200px; display: flex; justify-content: flex-end; align-items: center;">
+                    <div class="input-group" style="display: flex; justify-content: flex-end; width: 100%;">
+                        <div class="btn-search mr-3">
+                            <i class="bi bi-search" style="font-size: 24px; color: #fff;"></i>
+                        </div>
+                        <div class="mr-3 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-person-circle" style="font-size: 24px; color: #fff;"></i>
+                        </div>
+                        <div class="btn-menu mr-3"
+                            style="width: 30px; background-color: rgb(255, 187, 0); border-radius: 3px;">
+                            <i class="bi bi-list" style="font-size: 24px; color: #fff;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #cecece;">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav" style="height: 100%;">
+                            <li class="nav-item border-end pe-3" style="background-color: #fff;">
+                                <a class="nav-link" :href="DOMAIN"><i class="bi bi-house-door-fill"
+                                        style="color: purple"></i></a>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">HOT</a>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">THEO DÕI</a>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">LỊCH SỬ</a>
+                            </li>
+                            <li class="nav-item dropdown border-end pe-3">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    THỂ LOẠI
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Hành động</a></li>
+                                    <li><a class="dropdown-item" href="#">Hài hước</a></li>
+                                    <li><a class="dropdown-item" href="#">Lãng mạn</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Kinh dị</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">TÌM TRUYỆN</a>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">MANHUA</a>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">MANHWA</a>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">NGÔN TÌNH</a>
+                            </li>
+                            <li class="nav-item border-end pe-3">
+                                <a class="nav-link" href="#">CON GÁI</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">CON TRAI</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="notify mx-auto d-flex mb-3 mt-3"
+                style="width: 96%; border: 1px solid blue; display: flex; align-items: stretch;">
+                <div class="text-center"
+                    style="width: 36px; background-color: rgb(0, 132, 255); display: flex; justify-content: center; padding-top: 7px; padding-left: 7px; padding-right: 7px;">
+                    <i class="bi bi-info-circle-fill" style="color: #cccccc;"></i>
+                </div>
+                <div class="d-flex align-items-center m-2" style="font-size: 13.6px;">
+                    Website đọc truyện cá nhân, nâng cao tối đa trải nghiệm người dùng. Chúng tôi có đặt quảng cáo để
+                    phát triển
+                    tính năng mới. Xin lỗi vì trải nghiệm không thoải mái này!
+                </div>
+            </div>
+
+            {{{ body }}}
+
+
+            <div class="footer mt-3 d-flex align-items-center"
+                style="background-color: black; color: #fff; height: 100px;">
+                <div class="col-12 text-center p-2 footer-change">
+                    Copyright <i class="bi bi-c-circle"></i> Lương
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- Owl Carousel JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/vue-app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<div class="read-comic p-2">
+    <h6 class="mb-3">
+        <a :href="DOMAIN" style="color: rgb(0, 85, 255);">Trang chủ</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">Thể loại</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">[[ comicName ]]</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">Chapter [[ comicNumber ]]</a>
+    </h6>
+    <div class="d-flex align-items-center">
+        <div style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: rgb(0, 85, 255);">
+            [[ comicName ]]</div>
+        <span class="mr-2 ml-2">-</span>
+        <div class="mr-2">Chapter [[ comicNumber ]]</div>
+        <i style="font-size: 13px;">[ Cập nhật lúc: 2024-07-16 22:26:33 ]</i>
+    </div>
+
+    <hr color="blue" style="margin: 2px; height: 0.3px;">
+
+    <div class="read-cm text-center mt-2">
+        <div style="color: rgb(255, 183, 0);">Nếu không xem được truyện, nghĩa là bạn không kết nối mạng
+        </div>
+        <div style="color:  red;">Website có thể lỗi, hãy kiên nhẫn</div>
+
+        <div class="mt-2">
+            <button class="p-2 mr-2"
+                style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(18, 214, 15);">
+                Server 1 </button>
+            <button class="p-2"
+                style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(15, 95, 214);">
+                Server 2 </button>
+        </div>
+        <div class="mt-2 mb-2">
+            <button class="p-2 bi bi-exclamation-triangle-fill"
+                style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 151, 15);">
+                Báo lỗi </button>
+        </div>
+
+        <div class="mb-2 d-flex align-items-center justify-content-center"
+            style="border: 1px solid #0065fd3a; height: 40px; width: 100%; background-color: rgba(52, 120, 188, 0.202);">
+            <i style="font-size: 12px;"><i class="bi bi-info-circle-fill mr-2" style="color: #1061c4;"></i>Sử dụng mũi
+                tên trái (←) hoặc phải (→) để chuyển chapter</i>
+        </div>
+
+        <div class="mb-2 d-flex align-items-center justify-content-center">
+            <a :href="DOMAIN"><i class="mr-2 bi bi-house-door-fill"
+                    style="color: rgb(216, 88, 24); font-size: 20px;"></i></a>
+            <a href="#"><i class="mr-2 bi bi-list-ul" style="color: rgb(216, 88, 24); font-size: 25px;"></i></a>
+            <a href="#"><i class="mr-2 bi bi-arrow-counterclockwise"
+                    style="color: rgb(216, 88, 24); font-size: 20px;"></i></a>
+
+            <div class="mt-3 mb-3 d-flex justify-content-center align-items-center">
+                <a v-if="comic_detail_chaps.length > 0 && comicNumber -1 > 0"
+                    :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[comicNumber - 2].chapter_api_data+'&'+'num='+(Number(comicNumber) - 1)"
+                    class="p-1 mr-1"
+                    style="height: 30px; color: #fff; border: none;  border-radius: 3px 0 0 3px; background-color: rgb(214, 154, 15);">
+                    <i class="bi bi-caret-left-fill"></i>
+                </a>
+            </div>
+
+            <div class="dropdown" style="width: 200px; border: 1px solid black; height: 30px;">
+                <div class="dropdown-toggle mt-1" href="#" id="" role="button" data-bs-toggle="dropdown"
+                    style="font-size: 15px;">
+                    Chapter [[ comicNumber ]]
+                </div>
+                {{!-- <div>Chỗ này: chap.chapter_name có thể sai => dùng index</div> --}}
+                <ul class="dropdown-menu mt-1" aria-labelledby="navbarDropdown"
+                    style="width: 200px; max-height: 300px; overflow-y: auto;">
+                    <li v-for="(chap, index) in comic_detail_chaps" :key="chap.chapter_api_data">
+                        <a class="dropdown-item"
+                            :href="DOMAIN + 'read-comic?id=' + chap.chapter_api_data+'&'+'num='+(Number(index)+1)">Chapter
+                            [[ index + 1 ]]</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="mt-3 mb-3 d-flex justify-content-center align-items-center">
+                <a v-if="comic_detail_chaps.length > 0 && comicNumber -1 < comic_detail_chaps.length - 1"
+                    :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[comicNumber].chapter_api_data+'&'+'num='+(Number(comicNumber) + 1)"
+                    class="p-1 ml-1"
+                    style="height: 30px; color: #fff; border: none; text-align: left; border-radius:  0 3px 3px 0; background-color: rgb(214, 154, 15);">
+                    <i class="bi bi-caret-right-fill"></i>
+                </a>
+            </div>
+
+
+            <div class="mt-2 mb-2 ml-1">
+                <button class="bi bi-heart-fill"
+                    style="font-size: 13px; height: 30px; color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 41, 15);">
+                    Theo dõi </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="read-comic-img text-center" style="width: 100%; background-color: black;">
+        <img :src="domain_cdn_read+'/'+imgs_path+'/'+image.image_file" alt="" width="90%" v-for="image in imgs_comic">
+    </div>
+
+
+    <div class="mt-3 mb-3 d-flex justify-content-center">
+        <a v-if="comic_detail_chaps.length > 0 && comicNumber -1 > 0"
+            :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[comicNumber - 2].chapter_api_data+'&'+'num='+(Number(comicNumber)-1)"
+            class="p-1 mr-2"
+            style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(189, 69, 39);">
+            <i class="bi bi-caret-left"></i>Chap trước
+        </a>
+        <a v-if="comic_detail_chaps.length > 0 && comicNumber -1 < comic_detail_chaps.length - 1"
+            :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[comicNumber].chapter_api_data+'&'+'num='+(Number(comicNumber) + 1)"
+            class="p-1"
+            style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(189, 69, 39);">
+            Chap sau<i class="bi bi-caret-right"></i>
+        </a>
+    </div>
+
+
+    <h6 class="mb-3">
+        <a :href="DOMAIN" style="color: rgb(0, 85, 255);">Trang chủ</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">Thể loại</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">[[ comicName ]]</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">Chapter [[ comicNumber ]]</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">Bình luận</a>
+    </h6>
+
+
+    <hr color="blue" style="margin: 2px; height: 0.3px;">
+
+    <div class="coment container mt-4">
+        <!-- Thông báo cảnh báo -->
+        <i class="text-danger">
+            Bình luận không được tính để tăng cấp độ. Tài khoản không bình luận được là do: avatar nhạy cảm,
+            spam link hoặc chưa đủ cấp độ.
+        </i>
+
+        <!-- Khu vực nhập bình luận -->
+        <div class="mb-3 mt-3">
+            <input type="text" class="form-control"
+                placeholder="Mời bạn thảo luận, vui lòng không spam, share link kiếm tiền, thiếu lành mạnh,... để tránh bị khóa tài khoản">
+        </div>
+
+        <!-- Danh sách bình luận -->
+        <div class="mb-3">
+            <div class="card-coment d-flex">
+                <div class="mr-2">
+                    <img src="https://nettruyenww.com/public/assets/images/avatar-coment-default.jpg" class=""
+                        style="width: 50px; border: 1px solid seashell;" alt="Avatar">
+                </div>
+                <div class="flex-grow-1">
+                    <div class="" style="border: 1px solid black;">
+                        <div class="d-flex align-items-center">
+                            <h6 class="mb-0 m-2" style="color: rgb(0, 85, 255);">CuLi Nettruyen</h6>
+                            <span class="badge bg-success" style="height: 20px;">Cấp 2</span>
+                        </div>
+                        <hr color="gray" style="margin: 3px; height: 0.1px;">
+                        <div class="m-2">
+
+                            <p>Truyện hay</p>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex small text-muted align-items-center">
+                        <p class="text-muted mb-1 small" style="font-size: 13px;">0 phút trước</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút xem thêm -->
+        <div class="text-center">
+            <button class="btn btn-outline-secondary">+ Xem thêm bình luận</button>
+        </div>
+    </div>
+
+
+
+</div>

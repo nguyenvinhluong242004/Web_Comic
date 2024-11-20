@@ -1,0 +1,154 @@
+body {
+    background-color: #cecececa;
+    color: black;
+    position: relative;
+}
+
+.header {
+    background-color: rgb(67, 8, 130);
+}
+
+.navbar-nav .nav-item:hover {
+    background-color: #fff;
+}
+
+/* Đồng bộ chiều cao và căn chỉnh các item menu */
+.navbar {
+    height: 40px; /* Chiều cao cố định của thanh menu */
+}
+.navbar-nav .nav-item {
+    height: 100%; /* Chiều cao của mỗi mục bằng thẻ cha */
+    display: flex;
+    align-items: center; /* Căn giữa nội dung trong mục menu */
+}
+.navbar-nav .nav-item {
+    height: 100%; /* Đảm bảo item cũng full chiều cao */
+}
+.navbar-nav .nav-item:not(:last-child) {
+    border-right: 1px solid #bcbcbc; /* Vách ngăn */
+}
+
+.btn-search {
+    display: none;
+}
+
+.btn-menu {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .btn-search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .btn-search-full{
+        display: none;;
+    }
+}
+
+@media (max-width: 997px) {
+    .navbar {
+        display: none;
+    }
+    .btn-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+
+.carousel-item {
+    width: 200px !important;
+    position: relative; 
+}
+
+.carousel-item img {
+    width: 200px;
+    height: 230px;
+    display: block; 
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.702);
+    width: 200px;
+    text-align: center;
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    padding: 10px 0; 
+    color: white;
+}
+
+.carousel-caption h3 {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.carousel-caption a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.carousel-caption a:hover {
+    color: #0056b3;
+}
+
+.carousel-time {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.card-comic {
+    
+}
+
+.card-comic-img {
+    position: relative; 
+}
+
+.card-comic img {
+    max-height: 220px;
+    width: 100%;
+    border-radius: 3px;
+}
+
+.info-comic {
+    background-color: rgba(0, 0, 0, 0.702);
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0; 
+    left: 0; 
+    color: white;
+    
+    border-radius: 0 0 3px 3px;
+}
+
+
+/* Tùy chỉnh để chia đều cho 5 cột */
+.col-xl-custom {
+    flex: 0 0 calc(100% / 5); /* 20% mỗi cột khi màn hình lớn */
+    max-width: calc(100% / 5);
+}
+@media (max-width: 1199.98px) {
+    .col-xl-custom {
+        flex: 0 0 calc(100% / 4); /* 25% mỗi cột khi màn hình vừa */
+        max-width: calc(100% / 4);
+    }
+}
+@media (max-width: 991.98px) {
+    .col-xl-custom {
+        flex: 0 0 calc(100% / 3); /* 33.33% mỗi cột khi màn hình trung bình */
+        max-width: calc(100% / 3);
+    }
+}
+@media (max-width: 767.98px) {
+    .col-xl-custom {
+        flex: 0 0 calc(100% / 2); /* 50% mỗi cột khi màn hình nhỏ */
+        max-width: calc(100% / 2);
+    }
+}
+

@@ -1,0 +1,192 @@
+<div class="content-comic p-2">
+    <h6 class="mb-3">
+        <a href="#" style="color: rgb(0, 85, 255);">Trang chủ</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">Thể loại</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">[[ comicName ]]</a>
+    </h6>
+    <div class="ct-cm text-center">
+        <h4 style="text-transform: uppercase;">[[ comic_detail.name ]]</h4>
+        <i style="font-size: 14px;">[ Cập nhật lúc: 2024-07-16 22:26:33 ]</i>
+
+        <div class="info-cm d-flex justify-content-center mt-4">
+            <div class="mr-5">
+                <img :src="domain_image + middle_domain + comic_detail.thumb_url"
+                    :alt="domain_image + middle_domain + comic_detail.thumb_url" style="width: 200px; height: 250px;">
+            </div>
+
+            <div>
+                <div class="d-flex mb-2">
+                    <div class="bi bi-person-fill" style="width: 150px; text-align: left;"> Tác giả</div>
+                    <span>[[ comic_detail.author ]]</span>
+                </div>
+                <div class="d-flex mb-2">
+                    <div class="bi bi-broadcast" style="width: 150px; text-align: left;"> Tình trạng</div>
+                    <span>[[ comic_detail.status ]]</span>
+                </div>
+                <div class="d-flex mb-2">
+                    <div class="bi bi-tags-fill" style="width: 150px; text-align: left;"> Thể loại</div>
+                    <a href="#">Action</a>
+                    <span class="ml-1 mr-1">-</span>
+                    <a href="#">Comedy</a>
+                    <span class="ml-1 mr-1">-</span>
+                    <a href="#">Manhua</a>
+                    <span class="ml-1 mr-1">-</span>
+                    <a href="#">Xuyên Không</a>
+
+                </div>
+                <div class="d-flex mb-2">
+                    <div class="bi bi-eye-fill" style="width: 150px; text-align: left;"> Lượt xem</div>
+                    <span>2.004</span>
+                </div>
+
+                <div class="d-flex mb-2">
+                    <div class="bi bi-bar-chart-fill" style="width: 150px; text-align: left;"> Xếp hạng
+                    </div>
+                    <div class="d-flex">
+                        <div class="bi bi-star-fill" style="color: rgb(255, 187, 0);">
+                            4.5/5
+                        </div>
+                        <div class="bi  bi-dot ml-2 mr-2"></div>
+                        <div>
+                            246 - Lượt đánh giá
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="d-flex mb-2 mt-3 align-items-center">
+                    <button class="bi bi-heart-fill p-2 mr-3"
+                        style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 41, 15);">
+                        Theo dõi </button>
+                    <strong>1.904</strong>
+                    <span class="ml-1">Người Đã Theo Dõi</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-3 mb-3">
+            <a v-if="comic_detail_chaps.length > 0 && comic_detail_chaps[0].chapter_api_data"
+                :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[0].chapter_api_data+'&'+'num=1'"
+                class="p-2 mr-2"
+                style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 154, 15);">
+                Đọc từ đầu
+            </a>
+            <a v-if="comic_detail_chaps.length > 0 && comic_detail_chaps[comic_detail_chaps.length - 1].chapter_api_data"
+                :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[comic_detail_chaps.length - 1].chapter_api_data+'&'+'num='+Number(comic_detail_chaps.length)"
+                class="p-2"
+                style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 154, 15);">
+                Đọc mới nhất
+            </a>
+        </div>
+
+
+
+    </div>
+
+    <div class="d-flex ml-2 mr-2">
+        <div class="bi bi-book-half mr-2"></div>
+        <h5 style="color: #3b3838;">Nội dung truyện: [[ comicName ]]</h5>
+    </div>
+    <hr color="blue" style="margin: 2px;">
+    <h5 style="color: #3b3838;" class="ml-2 mt-2">Giới thiệu về LuongSoSad</h5>
+    <div class="ml-2 mr-2 mb-4">
+        Chào mừng bạn đến với website đọc truyện tranh online của LuongSoSad. Chi tiết về LuongSoSad là
+        một kẻ siêng ăn lười làm, thích làm những điều vô vị, suy nghĩ vu vơ, có trí tưởng tượng phong phú
+        nhưng khi thực hành thì bằng không, thích làm những điều lớn lao nhưng được vài hôm rồi bỏ, có kế
+        hoạch nhưng không đủ kiên trì, có ý chí nhưng không đủ nghị lực, có niềm tin nhưng không đủ khả
+        năng, thành sự thì ít, bại sự có thừa.
+    </div>
+    <div class="d-flex ml-2 mr-2">
+        <div class="bi bi-journal-text mr-2"></div>
+        <h5 style="color: #3b3838;">Danh sách chương</h5>
+    </div>
+    <hr color="blue" style="margin: 2px;">
+
+    <div class="container mt-4" style="border: 1px solid black;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" style="font-size: 20px;">Số chương</th>
+                    <th scope="col" style="font-size: 20px;">Cập nhật</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- <div>Chỗ này: chap.chapter_name có thể sai => dùng index</div> --}}
+                <tr v-for="(chap, index) in comic_detail_chaps" :key="chap.chapter_api_data">
+                    <td>
+                        <a :href="DOMAIN + 'read-comic?id=' + chap.chapter_api_data+'&'+'num='+(Number(index) + 1)"
+                            style="color: black; font-size: 15px;">
+                            Chapter [[ index + 1 ]]
+                        </a>
+                    </td>
+                    <td>
+                        <i style="font-size: 14px;">4 tháng trước</i>
+                    </td>
+                </tr>
+
+
+            </tbody>
+        </table>
+        <div class="text-center mb-2">
+            <button class="btn btn-primary">+ Xem thêm</button>
+        </div>
+    </div>
+
+    <div class="d-flex ml-2 mr-2 mt-4">
+        <div class="bi bi-chat-fill mr-2"></div>
+        <h5 style="color: #3b3838;">Bình luận</h5>
+    </div>
+    <hr color="blue" style="margin: 2px; height: 0.3px;">
+
+    <div class="comment container mt-4">
+        <!-- Thông báo cảnh báo -->
+        <i class="text-danger">
+            Bình luận không được tính để tăng cấp độ. Tài khoản không bình luận được là do: avatar nhạy cảm,
+            spam link hoặc chưa đủ cấp độ.
+        </i>
+
+        <!-- Khu vực nhập bình luận -->
+        <div class="mb-3 mt-3">
+            <input type="text" class="form-control"
+                placeholder="Mời bạn thảo luận, vui lòng không spam, share link kiếm tiền, thiếu lành mạnh,... để tránh bị khóa tài khoản">
+        </div>
+
+        <!-- Danh sách bình luận -->
+        <div class="mb-3">
+            <div class="card-comment d-flex">
+                <div class="mr-2">
+                    <img src="https://nettruyenww.com/public/assets/images/avatar-comment-default.jpg" class=""
+                        style="width: 50px; border: 1px solid seashell;" alt="Avatar">
+                </div>
+                <div class="flex-grow-1">
+                    <div class="" style="border: 1px solid black;">
+                        <div class="d-flex align-items-center">
+                            <h6 class="mb-0 m-2" style="color: rgb(0, 85, 255);">CuLi Nettruyen</h6>
+                            <span class="badge bg-success" style="height: 20px;">Cấp 2</span>
+                        </div>
+                        <hr color="gray" style="margin: 3px; height: 0.1px;">
+                        <div class="m-2">
+
+                            <p>Truyện hay</p>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex small text-muted align-items-center">
+                        <p class="text-muted mb-1 small" style="font-size: 13px;">0 phút trước</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nút xem thêm -->
+        <div class="text-center">
+            <button class="btn btn-outline-secondary">+ Xem thêm bình luận</button>
+        </div>
+    </div>
+
+
+</div>
