@@ -9,34 +9,70 @@ new Vue({
         domain_cdn_read: '',
         middle_domain: '/uploads/comics/',
         comics_update: [],
+        comics_type: [],
+        comics_type_result: [],
         comics_search_result: [],
+        comicNameType: '',
         imgage_comics: [],
         comic_detail: [],
         comic_detail_chaps: [],
         comicName: '',
         comicNumber: 1,
-        comicID: '',
+        comicSlug: '',
         imgs_comic: [],
         imgs_path: '',
+        comicNameSearch: '',
+        chapterName: '',
 
-        per_page: 12,
+        per_page: 24,
         total_page: 1,
         page: 1,
 
     },
     methods: {
-        fetchComics() {
-            fetch('https://otruyenapi.com/v1/api/home')
+        fetchComicUpdates() {
+            fetch(`https://otruyenapi.com/v1/api/danh-sach/truyen-moi?page=${this.page}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     this.comics_update = data.data.items;
                     this.imgage_comics = data.data.seoOnPage.og_image;
                     console.log(this.comics_update[0].name);
-                    console.log(data);
-                    this.total_page = Math.ceil(this.comics_update.length / this.per_page);
-                    this.page = 1;
-
+                    this.per_page = data.data.params.pagination.totalItemsPerPage;
+                    this.total_page = Math.ceil(data.data.params.pagination.totalItems / this.per_page);
                     console.log(this.total_page);
+                })
+                .catch(error => console.error('Error fetching comics:', error));
+        },
+        fetchComicTypes(typeName) {
+            fetch(`https://otruyenapi.com/v1/api/the-loai/${typeName}?page=${this.page}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.comics_type_result = data.data.items;
+                    this.imgage_comics = data.data.seoOnPage.og_image;
+                    console.log(data);
+                    console.log(this.comics_type_result);
+                    this.per_page = data.data.params.pagination.totalItemsPerPage;
+                    this.total_page = Math.ceil(data.data.params.pagination.totalItems / this.per_page);
+                    console.log(this.page)
+                    console.log(this.per_page)
+                    console.log(this.total_page)
+
+                    // Lưu lại vào localStorage
+                    localStorage.setItem('comicNameType', JSON.stringify(this.comicNameType));
+                })
+                .catch(error => console.error('Error fetching comics:', error));
+        },
+        fetchTypes() {
+            fetch('https://otruyenapi.com/v1/api/the-loai')
+                .then(response => response.json())
+                .then(data => {
+                    this.comics_type = data.data.items;
+                    console.log(data);
+                    console.log(this.comics_type);
+
+                    // Lưu lại vào localStorage
+                    localStorage.setItem('comics_type', JSON.stringify(this.comics_type));
                 })
                 .catch(error => console.error('Error fetching comics:', error));
         },
@@ -48,6 +84,7 @@ new Vue({
                     console.log(data);
                     this.comic_detail = data.data.item;
                     this.comicName = this.comic_detail.name;
+                    this.comicSlug = comicName;
 
                     console.log(this.comic_detail.chapters);
                     this.comic_detail.chapters.forEach(element => {
@@ -68,13 +105,13 @@ new Vue({
                             }
                         });
                     }
+                    console.log(this.comic_detail_chaps)
+                    console.log(this.domain_image + '/uploads/comics/' + this.comic_detail.thumb_url)
+
                     // Lưu lại vào localStorage
                     localStorage.setItem('comic_detail_chaps', JSON.stringify(this.comic_detail_chaps));
                     localStorage.setItem('comicName', JSON.stringify(this.comicName));
-
-
-                    console.log(this.comic_detail_chaps)
-                    console.log(this.domain_image + '/uploads/comics/' + this.comic_detail.thumb_url)
+                    localStorage.setItem('comicSlug', JSON.stringify(this.comicSlug));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
         },
@@ -87,115 +124,164 @@ new Vue({
                     console.log(data.data.item);
                     this.imgs_path = data.data.item.chapter_path;
                     console.log(this.imgs_comic[0]);
-
                     this.imgs_comic = data.data.item.chapter_image;
 
-                    this.comic_detail_chaps = JSON.parse(localStorage.getItem('comic_detail_chaps'));
-                    this.comicName = JSON.parse(localStorage.getItem('comicName'));
-                    this.comicNumber = JSON.parse(localStorage.getItem('comicNumber'));
-
-
-
-                    console.log(this.comic_detail_chaps);
-                    console.log(this.comicName);
-                    console.log(this.comicNumber);
-                    //this.imgs_comic = [];
-                    // if (Array.isArray(data.data.item.chapter_image)) {
-                    //     data.data.item.chapter_image.forEach(element => {
-                    //         const dataTemp = {
-                    //             image_file: element.image_file,
-                    //             image_path: element.image_path,
-                    //         }
-
-                    //         this.imgs_comic.push(dataTemp);
-                    //     });
-                    // }
+                    // Lưu lại vào localStorage
+                    localStorage.setItem('comicNumber', JSON.stringify(this.comicNumber));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
         },
         searchComic() {
             if ($('#txtInput').val().trim()) {
                 console.log($('#txtInput').val())
-                window.location.href = `/search?keyword=${encodeURIComponent($('#txtInput').val()).replace(/%20/g, "+")}`;
+                window.location.href = `/search?keyword=${encodeURIComponent($('#txtInput').val()).replace(/%20/g, "+")}&page=1`;
             } else {
                 alert("Vui lòng nhập từ khóa tìm kiếm!");
             }
         },
         fetchComicSearchs(key_word) {
             // Fetch thông tin chi tiết của truyện từ backend
-            fetch(`https://otruyenapi.com/v1/api/tim-kiem?keyword=${key_word}`)
+            fetch(`https://otruyenapi.com/v1/api/tim-kiem?keyword=${key_word}&page=${this.page}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data);
                     this.comics_search_result = data.data.items;
                     this.imgage_comics = data.data.seoOnPage.og_image;
+                    this.per_page = data.data.params.pagination.totalItemsPerPage;
+                    this.total_page = Math.ceil(data.data.params.pagination.totalItems / this.per_page);
 
-                    
-                    this.total_page = Math.ceil(this.comics_search_result.length / this.per_page);
-                    this.page = 1;
-                    
+                    // Lưu lại vào localStorage
+                    localStorage.setItem('comicNameSearch', JSON.stringify(this.comicNameSearch));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
         },
-        changeCurrentPage(event){
-            let idx = event.currentTarget.textContent.trim();
-            if (idx === "«") {
-                console.log("pre");
-                if (this.page > 1) {
-                    this.page--;
-                }
+        formatTimeDifference(dateString) {
+            const currentTime = new Date();
+            const updateTime = new Date(dateString);
+            const timeDifference = currentTime - updateTime; // Tính sự khác biệt giữa 2 thời điểm (ms)
+        
+            const seconds = Math.floor(timeDifference / 1000); // Chuyển sang giây
+            const minutes = Math.floor(seconds / 60); // Chuyển sang phút
+            const hours = Math.floor(minutes / 60); // Chuyển sang giờ
+            const days = Math.floor(hours / 24); // Chuyển sang ngày
+        
+            // Nếu thời gian nhỏ hơn 1 phút
+            if (seconds < 60) {
+                return `${seconds} giây trước`;
             }
-            else if (idx === "»") {
-                console.log("next");
-                if (this.page < this.total_page) {
-                    this.page++;
-                }
+            // Nếu thời gian trong vòng 1 giờ
+            if (minutes < 60) {
+                return `${minutes} phút trước`;
             }
-            else {
-                console.log(idx);
-                if (this.page === idx) {
-                    return;
-                }
-                this.page = idx;
+            // Nếu thời gian trong vòng 24 giờ
+            if (hours < 24) {
+                return `${hours} giờ trước`;
             }
+            // Nếu thời gian trong vòng 7 ngày
+            if (days <= 7) {
+                return `${days} ngày trước`;
+            }
+        
+            // Nếu quá 7 ngày, hiển thị dạng ngày/tháng/năm
+            const day = String(updateTime.getDate()).padStart(2, '0');
+            const month = String(updateTime.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+            const year = updateTime.getFullYear();
+        
+            return `${day}/${month}/${year}`;
+        },
+        formatDateTime(dateString) {
+            const date = new Date(dateString);
+
+            // Lấy các thành phần ngày, giờ
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+            const year = date.getFullYear();
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+
+            // Trả về chuỗi theo định dạng yêu cầu
+            return `Cập nhật lúc: ${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        },
+        fetchDataStorage() {
+            console.log('get');
+            this.comicSlug = JSON.parse(localStorage.getItem('comicSlug'));
+            this.comic_detail_chaps = JSON.parse(localStorage.getItem('comic_detail_chaps'));
+            this.comicNameSearch = JSON.parse(localStorage.getItem('comicNameSearch'));
+            this.comicName = JSON.parse(localStorage.getItem('comicName'));
+            this.comicNumber = JSON.parse(localStorage.getItem('comicNumber'));
+            this.comics_type = JSON.parse(localStorage.getItem('comics_type'));
         }
     },
+    computed: {
+        visiblePages() {
+            console.log(this.page)
+            // Tính toán phạm vi hiển thị từ page đến page + 15
+            const start = this.page;
+            const end = Math.min(this.page + 7, this.total_page); // Không vượt quá total_page
+            console.log(Array.from({ length: end - start + 1 }, (_, i) => start + i))
+            return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+        },
+    },
     mounted() {
+        this.fetchDataStorage();
+
         // Fetch danh sách truyện khi trang được tải
         if (window.location.pathname === '/') {
-            this.fetchComics();
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = parseInt(urlParams.get('page'), 10);
+            if (page) {
+                this.page = page;
+            }
+            this.fetchTypes()
+            this.fetchComicUpdates();
         }
         console.log(this.comicName)
 
         if (window.location.pathname === '/detail-comic') {
             const urlParams = new URLSearchParams(window.location.search);
-            const comicName = urlParams.get('id');  
+            const comicName = urlParams.get('id');
             if (comicName) {
                 console.log(comicName)
-                this.fetchComicDetails(comicName);  
+                this.fetchComicDetails(comicName);
             }
         }
 
         if (window.location.pathname === '/read-comic') {
             const urlParams = new URLSearchParams(window.location.search);
-            const comicId = urlParams.get('id');  
-            const comicNumber = urlParams.get('num'); 
+            const comicId = urlParams.get('id');
+            const comicNumber = parseInt(urlParams.get('num'), 10)
+            const chapterName = urlParams.get('chapter-name');
             if (comicId) {
                 console.log(comicId)
                 console.log(comicNumber)
                 this.comicNumber = comicNumber;
-                // Lưu lại vào localStorage
-                localStorage.setItem('comicNumber', JSON.stringify(this.comicNumber));
-                this.fetchComicReads(comicId);  
+                this.chapterName = chapterName;
+                this.fetchComicReads(comicId);
             }
         }
 
         if (window.location.pathname === '/search') {
             const urlParams = new URLSearchParams(window.location.search);
-            const comicNameSearch = urlParams.get('keyword');  
+            const comicNameSearch = urlParams.get('keyword');
+            this.page = parseInt(urlParams.get('page'), 10)
             if (comicNameSearch) {
                 console.log(comicNameSearch)
-                this.fetchComicSearchs(comicNameSearch); 
+                console.log(this.page)
+                this.comicNameSearch = comicNameSearch;
+                this.fetchComicSearchs(comicNameSearch);
+            }
+        }
+
+        if (window.location.pathname === '/type') {
+            const urlParams = new URLSearchParams(window.location.search);
+            const comicNameType = urlParams.get('name');
+            this.page = parseInt(urlParams.get('page'), 10)
+            if (comicNameType) {
+                this.comicNameType = comicNameType;
+                console.log(comicNameType)
+                console.log(this.page)
+                this.fetchComicTypes(comicNameType);
             }
         }
 

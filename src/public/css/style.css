@@ -35,6 +35,9 @@ body {
 .btn-menu {
     display: none;
 }
+.btn-heart{
+    display: none;;
+}
 
 @media (max-width: 600px) {
     .btn-search {
@@ -45,17 +48,24 @@ body {
     .btn-search-full{
         display: none;;
     }
+    .btn-heart {
+        display: flex;
+        align-items: center;
+    }
+    .btn-heart-full {
+        display: none;
+    }
 }
 
 @media (max-width: 997px) {
     .navbar {
         display: none;
     }
-    .btn-menu {
+    /* .btn-menu {
         display: flex;
         justify-content: center;
         align-items: center;
-    }
+    } */
 }
 
 

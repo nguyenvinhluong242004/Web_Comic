@@ -15,7 +15,8 @@
     <div id="app" class="mx-auto" style="max-width: 1030px;">
         <div style="background-color: #fff;">
             <div class="header d-flex align-items-center justify-content-between" style="height: 50px;">
-                <a :href="DOMAIN" class="p-3" style="cursor: pointer; width: 200px; font-size: 26px; font-weight: bold; color: #fff;">
+                <a :href="DOMAIN" class="p-3"
+                    style="cursor: pointer; width: 200px; font-size: 26px; font-weight: bold; color: #fff;">
                     <!-- <i @click="goBackHome" class="bi bi-house-door-fill" style="cursor: pointer;"></i> -->
                     LuongSoSad
                 </a>
@@ -29,7 +30,19 @@
                 <div class="pe-2" style="width: 200px; display: flex; justify-content: flex-end; align-items: center;">
                     <div class="input-group" style="display: flex; justify-content: flex-end; width: 100%;">
                         <div class="btn-search mr-3">
-                            <i class="bi bi-search" style="font-size: 24px; color: #fff;"></i>
+                            <i class="bi bi-search" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" style="font-size: 24px; color: #fff;"></i>
+                            <ul class="dropdown-menu mr-0 mt-1" aria-labelledby="navDropdown"
+                                style="background-color: #cccccc; width: 98vw !important; left: 0 !important; right: 0 !important; padding: 0 !important; margin: 0 !important;">
+                                <li class="" style="position: relative; width: 100%; margin-right: 10px;">
+                                    <input type="text"
+                                        style="height: 32px; font-size: 12px; width: 100%; padding-right: 30px;"
+                                        id="txtInput" placeholder="Tìm truyện..." aria-label="Search">
+                                    <a class="bi bi-search" @click="searchComic"
+                                        style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 18px; color: #000;"></a>
+                                </li>
+                                <li v-for="type in comics_type"><a class="dropdown-item" :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name]]</a></li>
+                            </ul>
                         </div>
                         <div class="mr-3 d-flex align-items-center justify-content-center">
                             <i class="bi bi-person-circle" style="font-size: 24px; color: #fff;"></i>
@@ -64,14 +77,9 @@
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     THỂ LOẠI
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Hành động</a></li>
-                                    <li><a class="dropdown-item" href="#">Hài hước</a></li>
-                                    <li><a class="dropdown-item" href="#">Lãng mạn</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Kinh dị</a></li>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="width: 98vw !important; max-width: 1030px; left: -276% !important; right: 0 !important; padding: 0 !important; margin: 0 !important;">
+                                    <li v-for="type in comics_type"><a class="dropdown-item" :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name]]</a></li>
+                                    
                                 </ul>
                             </li>
                             <li class="nav-item border-end pe-3">

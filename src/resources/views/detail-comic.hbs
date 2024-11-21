@@ -8,7 +8,7 @@
     </h6>
     <div class="ct-cm text-center">
         <h4 style="text-transform: uppercase;">[[ comic_detail.name ]]</h4>
-        <i style="font-size: 14px;">[ Cập nhật lúc: 2024-07-16 22:26:33 ]</i>
+        <i style="font-size: 14px;">[ [[ formatDateTime(comic_detail.updatedAt) ]] ]</i>
 
         <div class="info-cm d-flex justify-content-center mt-4">
             <div class="mr-5">
@@ -69,13 +69,13 @@
 
         <div class="mt-3 mb-3">
             <a v-if="comic_detail_chaps.length > 0 && comic_detail_chaps[0].chapter_api_data"
-                :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[0].chapter_api_data+'&'+'num=1'"
+                :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[0].chapter_api_data+'&'+'num=1' +'&chapter-name='+comic_detail_chaps[0].chapter_name"
                 class="p-2 mr-2"
                 style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 154, 15);">
                 Đọc từ đầu
             </a>
             <a v-if="comic_detail_chaps.length > 0 && comic_detail_chaps[comic_detail_chaps.length - 1].chapter_api_data"
-                :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[comic_detail_chaps.length - 1].chapter_api_data+'&'+'num='+Number(comic_detail_chaps.length)"
+                :href="DOMAIN + 'read-comic?id=' + comic_detail_chaps[comic_detail_chaps.length - 1].chapter_api_data+'&'+'num='+Number(comic_detail_chaps.length) +'&chapter-name='+comic_detail_chaps[comic_detail_chaps.length - 1].chapter_name"
                 class="p-2"
                 style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 154, 15);">
                 Đọc mới nhất
@@ -117,13 +117,13 @@
                 {{!-- <div>Chỗ này: chap.chapter_name có thể sai => dùng index</div> --}}
                 <tr v-for="(chap, index) in comic_detail_chaps" :key="chap.chapter_api_data">
                     <td>
-                        <a :href="DOMAIN + 'read-comic?id=' + chap.chapter_api_data+'&'+'num='+(Number(index) + 1)"
+                        <a :href="DOMAIN + 'read-comic?id=' + chap.chapter_api_data+'&'+'num='+(Number(index) + 1)+'&chapter-name='+chap.chapter_name"
                             style="color: black; font-size: 15px;">
-                            Chapter [[ index + 1 ]]
+                            Chapter [[ chap.chapter_name ]]
                         </a>
                     </td>
                     <td>
-                        <i style="font-size: 14px;">4 tháng trước</i>
+                        <i style="font-size: 14px;">[[ formatTimeDifference(chap) ]]</i>
                     </td>
                 </tr>
 

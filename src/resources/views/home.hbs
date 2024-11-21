@@ -133,11 +133,12 @@
 
     <!-- Danh sách truyện -->
     <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-custom mb-4" v-for="idx in per_page" :key="idx">
-            <div class="card-comic" v-if="(page-1)*per_page + idx-1 < comics_update.length">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-custom mb-4" v-for="(comic, index) in comics_update"
+            :key="index">
+            <div class="card-comic">
                 <div class="card-comic-img">
-                    <a :href="DOMAIN+'detail-comic?id=' + comics_update[(page-1)*per_page + idx-1].slug">
-                        <img :src="domain_image + '/' + imgage_comics[(page-1)*per_page + idx-1]" :alt="comics_update[(page-1)*per_page + idx-1].name">
+                    <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
+                        <img :src="domain_image + '/' + imgage_comics[index]" :alt="comic.name">
                     </a>
                     <div class="info-comic">
                         <div class="d-flex justify-content-center">
@@ -157,17 +158,13 @@
                     </div>
                 </div>
                 <div style="font-size: 19px;">
-                    <a :href="DOMAIN+'detail-comic?id=' + comics_update[(page-1)*per_page + idx-1].slug">
-                        [[ comics_update[(page-1)*per_page + idx-1].name ]]
+                    <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
+                        [[ comic.name ]]
                     </a>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <div style="font-size: 14px;">Chapter 523</div>
-                    <i style="font-size: 12px; color: #a2a1a1;">2 giờ trước</i>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <div style="font-size: 14px;">Chapter 523</div>
-                    <i style="font-size: 12px; color: #a2a1a1;">2 giờ trước</i>
+                <div class="d-flex justify-content-between" v-if="comic.chaptersLatest">
+                    <a :href="DOMAIN + 'read-comic?id='+comic.chaptersLatest[0].chapter_api_data.split('/').pop()+'&'+'num='+comic.chaptersLatest.chapter_name" style="font-size: 14px; color: black;">Chapter [[ comic.chaptersLatest[0].chapter_name ]]</a>
+                    <i style="font-size: 12px; color: #a2a1a1;">[[ formatTimeDifference(comic.updatedAt) ]]</i>
                 </div>
             </div>
         </div>
@@ -178,14 +175,16 @@
 
     <nav>
         <ul class="pagination justify-content-center">
-            <li class="page-item"><a @click="changeCurrentPage($event)" class="page-link" href="#">«</a>
+            <li class="page-item" :class="{ disabled: page <= 1 }">
+                <a class="page-link" :href="DOMAIN + '?truyen-moi&page=' + (page - 1)">«</a>
             </li>
 
-            <li class="page-item" v-for="pg in total_page" :key="pg" :class="{ active: page == pg }">
-                <a @click="changeCurrentPage($event)" class="page-link" href="#">[[ pg ]]</a>
+            <li class="page-item" v-for="pg in visiblePages" :key="pg" :class="{ active: pg === page }">
+                <a class="page-link" :href="DOMAIN + '?truyen-moi&page=' + pg">[[ pg ]]</a>
             </li>
 
-            <li class="page-item"><a @click="changeCurrentPage($event)" class="page-link" href="#">»</a>
+            <li class="page-item" :class="{ disabled: page >= total_page }">
+                <a class="page-link" :href="DOMAIN + '?truyen-moi&page=' + (page + 1)">»</a>
             </li>
         </ul>
     </nav>
