@@ -14,29 +14,39 @@ body {
 
 /* Đồng bộ chiều cao và căn chỉnh các item menu */
 .navbar {
-    height: 40px; /* Chiều cao cố định của thanh menu */
+    height: 40px;
+    /* Chiều cao cố định của thanh menu */
 }
+
 .navbar-nav .nav-item {
-    height: 100%; /* Chiều cao của mỗi mục bằng thẻ cha */
+    height: 100%;
+    /* Chiều cao của mỗi mục bằng thẻ cha */
     display: flex;
-    align-items: center; /* Căn giữa nội dung trong mục menu */
+    align-items: center;
+    /* Căn giữa nội dung trong mục menu */
 }
+
 .navbar-nav .nav-item {
-    height: 100%; /* Đảm bảo item cũng full chiều cao */
+    height: 100%;
+    /* Đảm bảo item cũng full chiều cao */
 }
+
 .navbar-nav .nav-item:not(:last-child) {
-    border-right: 1px solid #bcbcbc; /* Vách ngăn */
+    border-right: 1px solid #bcbcbc;
+    /* Vách ngăn */
 }
 
 .btn-search {
-    display: none; 
+    display: none;
 }
 
 .btn-menu {
     display: none;
 }
-.btn-heart{
-    display: none;;
+
+.btn-heart {
+    display: none;
+    ;
 }
 
 .info-cm {
@@ -59,13 +69,17 @@ body {
         justify-content: center;
         align-items: center;
     }
-    .btn-search-full{
-        display: none;;
+
+    .btn-search-full {
+        display: none;
+        ;
     }
+
     .btn-heart {
         display: flex;
         align-items: center;
     }
+
     .btn-heart-full {
         display: none;
     }
@@ -90,6 +104,7 @@ body {
     .navbar {
         display: none;
     }
+
     /* .btn-menu {
         display: flex;
         justify-content: center;
@@ -100,13 +115,13 @@ body {
 
 .carousel-item {
     width: 200px !important;
-    position: relative; 
+    position: relative;
 }
 
 .carousel-item img {
     width: 200px;
     height: 230px;
-    display: block; 
+    display: block;
 }
 
 .carousel-caption {
@@ -114,9 +129,9 @@ body {
     width: 200px;
     text-align: center;
     position: absolute;
-    bottom: 0; 
-    left: 0; 
-    padding: 10px 0; 
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
     color: white;
 }
 
@@ -139,12 +154,10 @@ body {
     color: #6c757d;
 }
 
-.card-comic {
-    
-}
+.card-comic {}
 
 .card-comic-img {
-    position: relative; 
+    position: relative;
 }
 
 .card-comic img {
@@ -158,35 +171,41 @@ body {
     width: 100%;
     text-align: center;
     position: absolute;
-    bottom: 0; 
-    left: 0; 
+    bottom: 0;
+    left: 0;
     color: white;
-    
+
     border-radius: 0 0 3px 3px;
 }
 
 
 /* Tùy chỉnh để chia đều cho 5 cột */
 .col-xl-custom {
-    flex: 0 0 calc(100% / 5); /* 20% mỗi cột khi màn hình lớn */
+    flex: 0 0 calc(100% / 5);
+    /* 20% mỗi cột khi màn hình lớn */
     max-width: calc(100% / 5);
 }
+
 @media (max-width: 1199.98px) {
     .col-xl-custom {
-        flex: 0 0 calc(100% / 4); /* 25% mỗi cột khi màn hình vừa */
+        flex: 0 0 calc(100% / 4);
+        /* 25% mỗi cột khi màn hình vừa */
         max-width: calc(100% / 4);
     }
 }
+
 @media (max-width: 991.98px) {
     .col-xl-custom {
-        flex: 0 0 calc(100% / 3); /* 33.33% mỗi cột khi màn hình trung bình */
+        flex: 0 0 calc(100% / 3);
+        /* 33.33% mỗi cột khi màn hình trung bình */
         max-width: calc(100% / 3);
     }
 }
+
 @media (max-width: 767.98px) {
     .col-xl-custom {
-        flex: 0 0 calc(100% / 2); /* 50% mỗi cột khi màn hình nhỏ */
+        flex: 0 0 calc(100% / 2);
+        /* 50% mỗi cột khi màn hình nhỏ */
         max-width: calc(100% / 2);
     }
 }
-

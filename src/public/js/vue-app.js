@@ -3,8 +3,8 @@ new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
     data: {
-        DOMAIN: 'https://comic-sv1.onrender.com/',
-        //DOMAIN: 'http://localhost:8888/',
+        //DOMAIN: 'https://comic-sv1.onrender.com/',
+        DOMAIN: 'http://localhost:8888/',
         domain_image: 'https://img.otruyenapi.com',
         domain_cdn_read: '',
         middle_domain: '/uploads/comics/',
@@ -147,6 +147,14 @@ new Vue({
             if ($('#txtInput').val().trim()) {
                 console.log($('#txtInput').val())
                 window.location.href = `/search?keyword=${encodeURIComponent($('#txtInput').val()).replace(/%20/g, "+")}&page=1`;
+            } else {
+                alert("Vui lòng nhập từ khóa tìm kiếm!");
+            }
+        },
+        searchComicVer2() {
+            if ($('#txtInput-ver2').val().trim()) {
+                console.log($('#txtInput-ver2').val())
+                window.location.href = `/search?keyword=${encodeURIComponent($('#txtInput-ver2').val()).replace(/%20/g, "+")}&page=1`;
             } else {
                 alert("Vui lòng nhập từ khóa tìm kiếm!");
             }

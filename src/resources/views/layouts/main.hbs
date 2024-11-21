@@ -33,12 +33,12 @@
                             <i class="bi bi-search" href="#" id="navDropdown" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false" style="font-size: 24px; color: #fff;"></i>
                             <ul class="dropdown-menu mr-0 mt-1" aria-labelledby="navDropdown"
-                                style="background-color: #cccccc; width: 98vw !important; left: 0 !important; right: 0 !important; padding: 0 !important; margin: 0 !important;">
+                                style="background-color: #cccccc; width: 100vw !important; left: 0 !important; right: 0 !important; padding: 0 !important; margin: 0 !important;">
                                 <li class="" style="position: relative; width: 100%; margin-right: 10px;">
                                     <input type="text"
                                         style="height: 32px; font-size: 12px; width: 100%; padding-right: 30px;"
-                                        id="txtInput" placeholder="Tìm truyện..." aria-label="Search">
-                                    <a class="bi bi-search" @click="searchComic"
+                                        id="txtInput-ver2" placeholder="Tìm truyện..." aria-label="Search">
+                                    <a class="bi bi-search" @click="searchComicVer2"
                                         style="cursor: pointer; position: absolute; top: 50%; right: 10px; transform: translateY(-50%); font-size: 18px; color: #000;"></a>
                                 </li>
                                 <li v-for="type in comics_type"><a class="dropdown-item" :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name]]</a></li>
