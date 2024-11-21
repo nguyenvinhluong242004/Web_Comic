@@ -12,6 +12,8 @@ new Vue({
         comics_type: [],
         comics_type_result: [],
         comics_search_result: [],
+        comics_complete: [],
+        images_complete: [],
         comicNameType: '',
         imgage_comics: [],
         comic_detail: [],
@@ -41,6 +43,16 @@ new Vue({
                     this.per_page = data.data.params.pagination.totalItemsPerPage;
                     this.total_page = Math.ceil(data.data.params.pagination.totalItems / this.per_page);
                     console.log(this.total_page);
+                })
+                .catch(error => console.error('Error fetching comics:', error));
+        },
+        fetchComicCompletes() {
+            fetch(`https://otruyenapi.com/v1/api/danh-sach/hoan-thanh?page=${this.getRandomPage()}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.comics_complete = data.data.items;
+                    this.images_complete = data.data.seoOnPage.og_image;
+                    console.log(this.comics_complete);
                 })
                 .catch(error => console.error('Error fetching comics:', error));
         },
@@ -159,12 +171,12 @@ new Vue({
             const currentTime = new Date();
             const updateTime = new Date(dateString);
             const timeDifference = currentTime - updateTime; // Tính sự khác biệt giữa 2 thời điểm (ms)
-        
+
             const seconds = Math.floor(timeDifference / 1000); // Chuyển sang giây
             const minutes = Math.floor(seconds / 60); // Chuyển sang phút
             const hours = Math.floor(minutes / 60); // Chuyển sang giờ
             const days = Math.floor(hours / 24); // Chuyển sang ngày
-        
+
             // Nếu thời gian nhỏ hơn 1 phút
             if (seconds < 60) {
                 return `${seconds} giây trước`;
@@ -181,12 +193,12 @@ new Vue({
             if (days <= 7) {
                 return `${days} ngày trước`;
             }
-        
+
             // Nếu quá 7 ngày, hiển thị dạng ngày/tháng/năm
             const day = String(updateTime.getDate()).padStart(2, '0');
             const month = String(updateTime.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
             const year = updateTime.getFullYear();
-        
+
             return `${day}/${month}/${year}`;
         },
         formatDateTime(dateString) {
@@ -202,6 +214,11 @@ new Vue({
 
             // Trả về chuỗi theo định dạng yêu cầu
             return `Cập nhật lúc: ${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        },
+        getRandomPage() {
+            const min = 1;
+            const max = 147;
+            return Math.floor(Math.random() * (max - min + 1)) + min;
         },
         fetchDataStorage() {
             console.log('get');
@@ -233,7 +250,8 @@ new Vue({
             if (page) {
                 this.page = page;
             }
-            this.fetchTypes()
+            this.fetchTypes();
+            this.fetchComicCompletes();
             this.fetchComicUpdates();
         }
         console.log(this.comicName)

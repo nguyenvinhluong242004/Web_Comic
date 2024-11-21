@@ -39,6 +39,20 @@ body {
     display: none;;
 }
 
+.info-cm {
+    display: flex;
+    justify-content: center;
+}
+
+.info-cm .img {
+    margin-right: 10px;
+}
+
+.tt-comic {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 600px) {
     .btn-search {
         display: flex;
@@ -55,6 +69,19 @@ body {
     .btn-heart-full {
         display: none;
     }
+
+    .info-cm {
+        display: inline;
+        align-items: center;
+    }
+
+    .info-cm .img {
+        margin-right: 0px;
+    }
+
+    .tt-comic {
+        display: block;
+    }
 }
 
 @media (max-width: 997px) {
@@ -67,7 +94,6 @@ body {
         align-items: center;
     } */
 }
-
 
 
 .carousel-item {

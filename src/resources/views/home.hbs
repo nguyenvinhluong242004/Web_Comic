@@ -2,125 +2,213 @@
     <h4 class="mb-3" style="color: rgb(0, 85, 255);">LuongSoSad - Truyện đề cử ></h4>
     <div class="owl-carousel owl-theme mx-auto">
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[0]" :href="DOMAIN+'detail-comic?id=' + comics_complete[0].slug">
+                <img :src="domain_image + '/' + images_complete[0]" alt="comics_complete[0].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[0]">[[ comics_complete[0].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[0]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[0].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[0]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[0].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[1]" :href="DOMAIN+'detail-comic?id=' + comics_complete[1].slug">
+                <img :src="domain_image + '/' + images_complete[1]" alt="comics_complete[1].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[1]">[[ comics_complete[1].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[1]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[1].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[1]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[1].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[2]" :href="DOMAIN+'detail-comic?id=' + comics_complete[2].slug">
+                <img :src="domain_image + '/' + images_complete[2]" alt="comics_complete[2].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[2]">[[ comics_complete[2].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[2]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[2].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[2]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[2].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[3]" :href="DOMAIN+'detail-comic?id=' + comics_complete[3].slug">
+                <img :src="domain_image + '/' + images_complete[3]" alt="comics_complete[3].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[3]">[[ comics_complete[3].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[3]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[3].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[3]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[3].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[4]" :href="DOMAIN+'detail-comic?id=' + comics_complete[4].slug">
+                <img :src="domain_image + '/' + images_complete[4]" alt="comics_complete[4].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[4]">[[ comics_complete[4].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[4]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[4].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[4]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[4].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[5]" :href="DOMAIN+'detail-comic?id=' + comics_complete[5].slug">
+                <img :src="domain_image + '/' + images_complete[5]" alt="comics_complete[5].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[5]">[[ comics_complete[5].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[5]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[5].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[5]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[5].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[6]" :href="DOMAIN+'detail-comic?id=' + comics_complete[6].slug">
+                <img :src="domain_image + '/' + images_complete[6]" alt="comics_complete[6].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[6]">[[ comics_complete[6].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[6]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[6].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[6]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[6].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="carousel-item active">
-            <a :href="DOMAIN + 'detail-comic'">
-                <img src="https://img.otruyenapi.com/uploads/comics/ta-la-ta-de-thumb.jpg" alt="Truyện 1">
+            <a v-if="comics_complete[7]" :href="DOMAIN+'detail-comic?id=' + comics_complete[7].slug">
+                <img :src="domain_image + '/' + images_complete[7]" alt="comics_complete[7].name">
             </a>
             <div class="carousel-caption">
-                <div>Ta là tà đế</div>
+                <div v-if="comics_complete[7]">[[ comics_complete[7].name ]]</div>
                 <div class="d-flex justify-content-center">
-                    <div style="font-size: 12px; margin-right: 10px;">Chapter 522</div>
+                    <div v-if="comics_complete[7]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[7].chaptersLatest[0].chapter_name ]]</div>
                     <div class="d-flex">
-                        <i style="font-size: 12px;" class="bi bi-clock"></i>
-                        <div style="font-size: 12px;">1 giờ trước</div>
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[7]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[7].updatedAt) ]]</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="carousel-item active">
+            <a v-if="comics_complete[8]" :href="DOMAIN+'detail-comic?id=' + comics_complete[8].slug">
+                <img :src="domain_image + '/' + images_complete[8]" alt="comics_complete[8].name">
+            </a>
+            <div class="carousel-caption">
+                <div v-if="comics_complete[8]">[[ comics_complete[8].name ]]</div>
+                <div class="d-flex justify-content-center">
+                    <div v-if="comics_complete[8]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[8].chaptersLatest[0].chapter_name ]]</div>
+                    <div class="d-flex">
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[8]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[8].updatedAt) ]]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item active">
+            <a v-if="comics_complete[9]" :href="DOMAIN+'detail-comic?id=' + comics_complete[9].slug">
+                <img :src="domain_image + '/' + images_complete[9]" alt="comics_complete[9].name">
+            </a>
+            <div class="carousel-caption">
+                <div v-if="comics_complete[9]">[[ comics_complete[9].name ]]</div>
+                <div class="d-flex justify-content-center">
+                    <div v-if="comics_complete[9]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[9].chaptersLatest[0].chapter_name ]]</div>
+                    <div class="d-flex">
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[9]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[9].updatedAt) ]]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item active">
+            <a v-if="comics_complete[10]" :href="DOMAIN+'detail-comic?id=' + comics_complete[10].slug">
+                <img :src="domain_image + '/' + images_complete[10]" alt="comics_complete[10].name">
+            </a>
+            <div class="carousel-caption">
+                <div v-if="comics_complete[10]">[[ comics_complete[10].name ]]</div>
+                <div class="d-flex justify-content-center">
+                    <div v-if="comics_complete[10]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[10].chaptersLatest[0].chapter_name ]]</div>
+                    <div class="d-flex">
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[10]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[10].updatedAt) ]]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item active">
+            <a v-if="comics_complete[11]" :href="DOMAIN+'detail-comic?id=' + comics_complete[11].slug">
+                <img :src="domain_image + '/' + images_complete[11]" alt="comics_complete[11].name">
+            </a>
+            <div class="carousel-caption">
+                <div v-if="comics_complete[11]">[[ comics_complete[11].name ]]</div>
+                <div class="d-flex justify-content-center">
+                    <div v-if="comics_complete[11]" style="font-size: 12px; margin-right: 10px;">Chapter [[
+                        comics_complete[11].chaptersLatest[0].chapter_name ]]</div>
+                    <div class="d-flex">
+                        <i style="font-size: 12px;" class="bi bi-clock mr-1"></i>
+                        <div v-if="comics_complete[11]" style="font-size: 12px;">[[
+                            formatTimeDifference(comics_complete[11].updatedAt) ]]</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
 
     </div>
 
@@ -163,7 +251,8 @@
                     </a>
                 </div>
                 <div class="d-flex justify-content-between" v-if="comic.chaptersLatest">
-                    <a :href="DOMAIN + 'read-comic?id='+comic.chaptersLatest[0].chapter_api_data.split('/').pop()+'&'+'num='+comic.chaptersLatest.chapter_name" style="font-size: 14px; color: black;">Chapter [[ comic.chaptersLatest[0].chapter_name ]]</a>
+                    <a :href="DOMAIN + 'read-comic?id='+comic.chaptersLatest[0].chapter_api_data.split('/').pop()+'&'+'num='+comic.chaptersLatest.chapter_name"
+                        style="font-size: 14px; color: black;">Chapter [[ comic.chaptersLatest[0].chapter_name ]]</a>
                     <i style="font-size: 12px; color: #a2a1a1;">[[ formatTimeDifference(comic.updatedAt) ]]</i>
                 </div>
             </div>
