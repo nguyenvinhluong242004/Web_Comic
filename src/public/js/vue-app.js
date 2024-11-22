@@ -85,9 +85,6 @@ const vueApp = new Vue({
                     console.log(this.page)
                     console.log(this.per_page)
                     console.log(this.total_page)
-
-                    // Lưu lại vào sessionStorage
-                    sessionStorage.setItem('comicNameType', JSON.stringify(this.comicNameType));
                 })
                 .catch(error => console.error('Error fetching comics:', error));
         },
@@ -112,14 +109,11 @@ const vueApp = new Vue({
                     console.log(data);
                     this.comic_detail = data.data.item;
                     this.comicName = this.comic_detail.name;
-                    this.comicSlug = comicName;
+                    this.comicSlug = this.comic_detail.slug;
                     this.isShowFullList = false;
 
                     console.log(this.comic_detail)
                     console.log(this.comic_detail.chapters);
-                    this.comic_detail.chapters.forEach(element => {
-                        console.log(element.server_data);
-                    });
                     this.comic_detail_chaps = [];
                     if (Array.isArray(this.comic_detail.chapters)) {
                         this.comic_detail.chapters.forEach(element => {
@@ -139,10 +133,10 @@ const vueApp = new Vue({
                     console.log(this.domain_image + '/uploads/comics/' + this.comic_detail.thumb_url)
 
                     // Lưu lại vào sessionStorage
-                    sessionStorage.setItem('comic_detail', JSON.stringify(this.comic_detail));
-                    sessionStorage.setItem('comic_detail_chaps', JSON.stringify(this.comic_detail_chaps));
-                    sessionStorage.setItem('comicName', JSON.stringify(this.comicName));
-                    sessionStorage.setItem('comicSlug', JSON.stringify(this.comicSlug));
+                    // sessionStorage.setItem('comic_detail', JSON.stringify(this.comic_detail));
+                    // sessionStorage.setItem('comic_detail_chaps', JSON.stringify(this.comic_detail_chaps));
+                    // sessionStorage.setItem('comicName', JSON.stringify(this.comicName));
+                    // sessionStorage.setItem('comicSlug', JSON.stringify(this.comicSlug));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
         },
@@ -261,11 +255,11 @@ const vueApp = new Vue({
         },
         fetchDataStorage() {
             console.log('get');
-            this.comicSlug = JSON.parse(sessionStorage.getItem('comicSlug'));
-            this.comic_detail_chaps = JSON.parse(sessionStorage.getItem('comic_detail_chaps'));
-            this.comic_detail = JSON.parse(sessionStorage.getItem('comic_detail'));
+            // this.comicSlug = JSON.parse(sessionStorage.getItem('comicSlug'));
+            // this.comic_detail_chaps = JSON.parse(sessionStorage.getItem('comic_detail_chaps'));
+            // this.comic_detail = JSON.parse(sessionStorage.getItem('comic_detail'));
             this.comicNameSearch = JSON.parse(sessionStorage.getItem('comicNameSearch'));
-            this.comicName = JSON.parse(sessionStorage.getItem('comicName'));
+            // this.comicName = JSON.parse(sessionStorage.getItem('comicName'));
             this.comicNumber = JSON.parse(sessionStorage.getItem('comicNumber'));
             this.comics_type = JSON.parse(localStorage.getItem('comics_type'));
             if (!this.comics_type) {
@@ -310,14 +304,17 @@ const vueApp = new Vue({
 
         if (window.location.pathname === '/read-comic') {
             const urlParams = new URLSearchParams(window.location.search);
+            const comicSlug = urlParams.get('name');
             const comicId = urlParams.get('id');
             const comicNumber = parseInt(urlParams.get('num'), 10)
             const chapterName = urlParams.get('chapter-name');
-            if (comicId) {
+            if (comicSlug) {
                 console.log(comicId)
                 console.log(comicNumber)
+                this.comicSlug = comicSlug;
                 this.comicNumber = comicNumber;
                 this.chapterName = chapterName;
+                this.fetchComicDetails(comicSlug);
                 this.fetchComicReads(comicId);
             }
         }
