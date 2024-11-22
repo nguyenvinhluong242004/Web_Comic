@@ -295,7 +295,6 @@ const vueApp = new Vue({
             this.fetchComicCompletes();
             this.fetchComicUpdates();
         }
-        console.log(this.comicName)
 
         if (window.location.pathname === '/detail-comic') {
             const urlParams = new URLSearchParams(window.location.search);
