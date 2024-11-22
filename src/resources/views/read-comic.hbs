@@ -9,12 +9,14 @@
         <a href="#" style="color: rgb(0, 85, 255);">Chapter [[ chapterName ]]</a>
     </h6>
     <div class="tt-comic p-2">
-        <div class="mr-2" style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: rgb(0, 85, 255);">
+        <div class="mr-2"
+            style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: rgb(0, 85, 255);">
             [[ comicName ]]</div>
         <div class="d-flex align-items-center">
             <div class="mr-2">Chapter [[ chapterName ]]</div>
             <div class="mr-2">-</div>
-            <i style="font-size: 13px;">[ Cập nhật lúc: 2024-07-16 22:26:33 ]</i>
+            <i v-if="comic_detail.updatedAt" style="font-size: 13px;">[ [[ formatDateTime(comic_detail.updatedAt) ]]
+                ]</i>
         </div>
     </div>
 
@@ -63,13 +65,14 @@
 
             <div class="dropdown" style="width: 200px; border: 1px solid black; height: 30px;">
                 <div class="dropdown-toggle mt-1" href="#" id="" role="button" data-bs-toggle="dropdown"
-                    style="font-size: 15px;">
+                    @click="scrollToActiveChapter" style="font-size: 15px;">
                     Chapter [[ chapterName ]]
                 </div>
                 {{!-- <div>Chỗ này: chap.chapter_name có thể sai => dùng index</div> --}}
-                <ul class="dropdown-menu mt-1" aria-labelledby="navbarDropdown"
+                <ul class="dropdown-menu mt-1 dropdownMenu" aria-labelledby="navbarDropdown"
                     style="width: 200px; max-height: 300px; overflow-y: auto;">
-                    <li v-for="(chap, index) in comic_detail_chaps" :key="chap.chapter_api_data">
+                    <li v-for="(chap, index) in comic_detail_chaps" :key="chap.chapter_api_data"
+                        :class="{ 'active-chapter': index + 1 === comicNumber }">
                         <a class="dropdown-item"
                             :href="DOMAIN + 'read-comic?id=' + chap.chapter_api_data+'&'+'num='+(Number(index)+1)+'&chapter-name='+chap.chapter_name">Chapter
                             [[ chap.chapter_name ]]</a>
@@ -159,7 +162,7 @@
                 <div class="flex-grow-1">
                     <div class="" style="border: 1px solid black;">
                         <div class="d-flex align-items-center">
-                            <h6 class="mb-0 m-2" style="color: rgb(0, 85, 255);">CuLi Nettruyen</h6>
+                            <h6 class="mb-0 m-2" style="color: rgb(0, 85, 255);">LuongSoSad</h6>
                             <span class="badge bg-success" style="height: 20px;">Cấp 2</span>
                         </div>
                         <hr color="gray" style="margin: 3px; height: 0.1px;">

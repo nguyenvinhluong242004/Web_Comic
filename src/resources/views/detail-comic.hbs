@@ -6,7 +6,7 @@
         »
         <a href="#" style="color: rgb(0, 85, 255);">[[ comicName ]]</a>
     </h6>
-    <div class="ct-cm text-center">
+    <div class="ct-cm text-center" v-if="comic_detail">
         <h4 style="text-transform: uppercase;">[[ comic_detail.name ]]</h4>
         <i style="font-size: 14px;">[ [[ formatDateTime(comic_detail.updatedAt) ]] ]</i>
 
@@ -116,13 +116,23 @@
             <tbody>
                 {{!-- <div>Chỗ này: chap.chapter_name có thể sai => dùng index</div> --}}
                 <tr v-for="(chap, index) in comic_detail_chaps" :key="chap.chapter_api_data">
-                    <td>
+                    <td v-if="!isShowFullList && index < 7">
                         <a :href="DOMAIN + 'read-comic?id=' + chap.chapter_api_data+'&'+'num='+(Number(index) + 1)+'&chapter-name='+chap.chapter_name"
                             style="color: black; font-size: 15px;">
                             Chapter [[ chap.chapter_name ]]
                         </a>
                     </td>
-                    <td>
+                    <td v-if="!isShowFullList && index < 7">
+                        <i style="font-size: 14px;">[[ formatTimeDifference(chap) ]]</i>
+                    </td>
+
+                    <td v-if="isShowFullList">
+                        <a :href="DOMAIN + 'read-comic?id=' + chap.chapter_api_data+'&'+'num='+(Number(index) + 1)+'&chapter-name='+chap.chapter_name"
+                            style="color: black; font-size: 15px;">
+                            Chapter [[ chap.chapter_name ]]
+                        </a>
+                    </td>
+                    <td v-if="isShowFullList">
                         <i style="font-size: 14px;">[[ formatTimeDifference(chap) ]]</i>
                     </td>
                 </tr>
@@ -130,8 +140,11 @@
 
             </tbody>
         </table>
-        <div class="text-center mb-2">
-            <button class="btn btn-primary">+ Xem thêm</button>
+        <div v-if="comic_detail_chaps.length > 7 && !isShowFullList" class="text-center mb-2">
+            <button @click="changeIsShow(true)" class="btn btn-primary">+ Xem thêm</button>
+        </div>
+        <div v-if="comic_detail_chaps.length > 7 && isShowFullList" class="text-center mb-2">
+            <button @click="changeIsShow(false)" class="btn btn-primary">- Thu gọn</button>
         </div>
     </div>
 
@@ -164,7 +177,7 @@
                 <div class="flex-grow-1">
                     <div class="" style="border: 1px solid black;">
                         <div class="d-flex align-items-center">
-                            <h6 class="mb-0 m-2" style="color: rgb(0, 85, 255);">CuLi Nettruyen</h6>
+                            <h6 class="mb-0 m-2" style="color: rgb(0, 85, 255);">LuongSoSad</h6>
                             <span class="badge bg-success" style="height: 20px;">Cấp 2</span>
                         </div>
                         <hr color="gray" style="margin: 3px; height: 0.1px;">

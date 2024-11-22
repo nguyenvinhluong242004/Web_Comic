@@ -9,4 +9,16 @@ $(document).ready(function () {
         autoplayTimeout: 3000,
       
     });
+    $('#txtInput').on('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Ngăn hành động mặc định (nếu có)
+            vueApp.searchComic(); // Gọi hàm tìm kiếm
+        }
+    });
+    $('#txtInput-ver2').on('keydown', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Ngăn hành động mặc định (nếu có)
+            vueApp.searchComicVer2(); // Gọi hàm tìm kiếm
+        }
+    });
 });

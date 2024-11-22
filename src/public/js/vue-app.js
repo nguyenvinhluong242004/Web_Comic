@@ -1,5 +1,5 @@
 // vue-app.js
-new Vue({
+const vueApp = new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
     data: {
@@ -25,6 +25,8 @@ new Vue({
         imgs_path: '',
         comicNameSearch: '',
         chapterName: '',
+
+        isShowFullList: false,
 
         per_page: 24,
         total_page: 1,
@@ -64,14 +66,28 @@ new Vue({
                     this.imgage_comics = data.data.seoOnPage.og_image;
                     console.log(data);
                     console.log(this.comics_type_result);
+                    this.comics_type_result.forEach(element => {
+                        // Kiểm tra xem chaptersLatest tồn tại và là một mảng, đồng thời có phần tử đầu tiên
+                        if (Array.isArray(element.chaptersLatest) && element.chaptersLatest.length > 0) {
+                            const chapterName = element.chaptersLatest[0]?.chapter_name; // Dùng optional chaining để an toàn
+                            if (chapterName) {
+                                console.log(chapterName);
+                            } else {
+                                console.log('Không tìm thấy chapter_name cho truyện này.');
+                            }
+                        } else {
+                            console.log('chaptersLatest không tồn tại hoặc không có phần tử.');
+                        }
+                    });
+
                     this.per_page = data.data.params.pagination.totalItemsPerPage;
                     this.total_page = Math.ceil(data.data.params.pagination.totalItems / this.per_page);
                     console.log(this.page)
                     console.log(this.per_page)
                     console.log(this.total_page)
 
-                    // Lưu lại vào localStorage
-                    localStorage.setItem('comicNameType', JSON.stringify(this.comicNameType));
+                    // Lưu lại vào sessionStorage
+                    sessionStorage.setItem('comicNameType', JSON.stringify(this.comicNameType));
                 })
                 .catch(error => console.error('Error fetching comics:', error));
         },
@@ -97,7 +113,9 @@ new Vue({
                     this.comic_detail = data.data.item;
                     this.comicName = this.comic_detail.name;
                     this.comicSlug = comicName;
+                    this.isShowFullList = false;
 
+                    console.log(this.comic_detail)
                     console.log(this.comic_detail.chapters);
                     this.comic_detail.chapters.forEach(element => {
                         console.log(element.server_data);
@@ -120,10 +138,11 @@ new Vue({
                     console.log(this.comic_detail_chaps)
                     console.log(this.domain_image + '/uploads/comics/' + this.comic_detail.thumb_url)
 
-                    // Lưu lại vào localStorage
-                    localStorage.setItem('comic_detail_chaps', JSON.stringify(this.comic_detail_chaps));
-                    localStorage.setItem('comicName', JSON.stringify(this.comicName));
-                    localStorage.setItem('comicSlug', JSON.stringify(this.comicSlug));
+                    // Lưu lại vào sessionStorage
+                    sessionStorage.setItem('comic_detail', JSON.stringify(this.comic_detail));
+                    sessionStorage.setItem('comic_detail_chaps', JSON.stringify(this.comic_detail_chaps));
+                    sessionStorage.setItem('comicName', JSON.stringify(this.comicName));
+                    sessionStorage.setItem('comicSlug', JSON.stringify(this.comicSlug));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
         },
@@ -133,13 +152,13 @@ new Vue({
                 .then(response => response.json())
                 .then(data => {
                     this.domain_cdn_read = data.data.domain_cdn;
-                    console.log(data.data.item);
+                    console.log(data.data);
                     this.imgs_path = data.data.item.chapter_path;
-                    console.log(this.imgs_comic[0]);
                     this.imgs_comic = data.data.item.chapter_image;
+                    console.log(this.imgs_comic[0]);
 
                     // Lưu lại vào localStorage
-                    localStorage.setItem('comicNumber', JSON.stringify(this.comicNumber));
+                    sessionStorage.setItem('comicNumber', JSON.stringify(this.comicNumber));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
         },
@@ -171,7 +190,7 @@ new Vue({
                     this.total_page = Math.ceil(data.data.params.pagination.totalItems / this.per_page);
 
                     // Lưu lại vào localStorage
-                    localStorage.setItem('comicNameSearch', JSON.stringify(this.comicNameSearch));
+                    sessionStorage.setItem('comicNameSearch', JSON.stringify(this.comicNameSearch));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
         },
@@ -228,14 +247,30 @@ new Vue({
             const max = 147;
             return Math.floor(Math.random() * (max - min + 1)) + min;
         },
+        changeIsShow(sta) {
+            this.isShowFullList = sta;
+        },
+        scrollToActiveChapter() {
+            const dropdownMenu = $('.dropdownMenu');
+            dropdownMenu.scrollTop(0);
+            const activeItem = $('.active-chapter');
+            console.log(dropdownMenu)
+            if (activeItem) {
+                dropdownMenu.scrollTop(activeItem.position().top - dropdownMenu.position().top);
+            }
+        },
         fetchDataStorage() {
             console.log('get');
-            this.comicSlug = JSON.parse(localStorage.getItem('comicSlug'));
-            this.comic_detail_chaps = JSON.parse(localStorage.getItem('comic_detail_chaps'));
-            this.comicNameSearch = JSON.parse(localStorage.getItem('comicNameSearch'));
-            this.comicName = JSON.parse(localStorage.getItem('comicName'));
-            this.comicNumber = JSON.parse(localStorage.getItem('comicNumber'));
+            this.comicSlug = JSON.parse(sessionStorage.getItem('comicSlug'));
+            this.comic_detail_chaps = JSON.parse(sessionStorage.getItem('comic_detail_chaps'));
+            this.comic_detail = JSON.parse(sessionStorage.getItem('comic_detail'));
+            this.comicNameSearch = JSON.parse(sessionStorage.getItem('comicNameSearch'));
+            this.comicName = JSON.parse(sessionStorage.getItem('comicName'));
+            this.comicNumber = JSON.parse(sessionStorage.getItem('comicNumber'));
             this.comics_type = JSON.parse(localStorage.getItem('comics_type'));
+            if (!this.comics_type) {
+                this.fetchTypes();
+            }
         }
     },
     computed: {
