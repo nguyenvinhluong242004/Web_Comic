@@ -17,6 +17,7 @@ const vueApp = new Vue({
         comicNameType: '',
         imgage_comics: [],
         comic_detail: [],
+        comic_breadCrumb: [],
         comic_detail_chaps: [],
         comicName: '',
         comicNumber: 1,
@@ -25,6 +26,7 @@ const vueApp = new Vue({
         imgs_path: '',
         comicNameSearch: '',
         chapterName: '',
+        titlePage_type: '',
 
         isShowFullList: false,
 
@@ -64,6 +66,7 @@ const vueApp = new Vue({
                 .then(data => {
                     this.comics_type_result = data.data.items;
                     this.imgage_comics = data.data.seoOnPage.og_image;
+                    this.titlePage_type = data.data.titlePage;
                     console.log(data);
                     console.log(this.comics_type_result);
                     this.comics_type_result.forEach(element => {
@@ -111,6 +114,7 @@ const vueApp = new Vue({
                     this.comicName = this.comic_detail.name;
                     this.comicSlug = this.comic_detail.slug;
                     this.isShowFullList = false;
+                    this.comic_breadCrumb = data.data.breadCrumb;
 
                     console.log(this.comic_detail)
                     console.log(this.comic_detail.chapters);
@@ -161,7 +165,7 @@ const vueApp = new Vue({
                 console.log($('#txtInput').val())
                 window.location.href = `/search?keyword=${encodeURIComponent($('#txtInput').val()).replace(/%20/g, "+")}&page=1`;
             } else {
-                alert("Vui lòng nhập từ khóa tìm kiếm!");
+                //alert("Vui lòng nhập từ khóa tìm kiếm!");
             }
         },
         searchComicVer2() {
@@ -169,7 +173,7 @@ const vueApp = new Vue({
                 console.log($('#txtInput-ver2').val())
                 window.location.href = `/search?keyword=${encodeURIComponent($('#txtInput-ver2').val()).replace(/%20/g, "+")}&page=1`;
             } else {
-                alert("Vui lòng nhập từ khóa tìm kiếm!");
+                //alert("Vui lòng nhập từ khóa tìm kiếm!");
             }
         },
         fetchComicSearchs(key_word) {

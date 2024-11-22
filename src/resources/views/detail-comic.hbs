@@ -2,8 +2,6 @@
     <h6 class="mb-3">
         <a :href="DOMAIN" style="color: rgb(0, 85, 255);">Trang chủ</a>
         »
-        <a href="#" style="color: rgb(0, 85, 255);">Thể loại</a>
-        »
         <a href="#" style="color: rgb(0, 85, 255);">[[ comicName ]]</a>
     </h6>
     <div class="ct-cm text-center" v-if="comic_detail">
@@ -25,17 +23,19 @@
                     <div class="bi bi-broadcast" style="width: 150px; text-align: left;"> Tình trạng</div>
                     <span>[[ comic_detail.status ]]</span>
                 </div>
-                <div class="d-flex mb-2">
-                    <div class="bi bi-tags-fill" style="width: 150px; text-align: left;"> Thể loại</div>
-                    <a href="#">Action</a>
-                    <span class="ml-1 mr-1">-</span>
-                    <a href="#">Comedy</a>
-                    <span class="ml-1 mr-1">-</span>
-                    <a href="#">Manhua</a>
-                    <span class="ml-1 mr-1">-</span>
-                    <a href="#">Xuyên Không</a>
-
+                <div class="d-flex mb-2 align-items-center">
+                    <div class="bi bi-tags-fill flex-shrink-0" style="width: 150px; text-align: left; align-self: flex-start;"> Thể loại</div>
+                    <div class="d-flex flex-wrap">
+                        <div v-for="(type, index) in comic_breadCrumb" class="d-flex align-items-center">
+                            <span>
+                                <a v-if="type.slug" :href="DOMAIN+'type?name='+type.slug.split('/').pop()+'&page=1'">[[
+                                    type.name ]]</a>
+                            </span>
+                            <span v-if="index < comic_breadCrumb.length - 2" class="ml-1 mr-1">-</span>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="d-flex mb-2">
                     <div class="bi bi-eye-fill" style="width: 150px; text-align: left;"> Lượt xem</div>
                     <span>2.004</span>
@@ -60,7 +60,7 @@
                     <button class="bi bi-heart-fill p-2 mr-3"
                         style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 41, 15);">
                         Theo dõi </button>
-                    <strong>1.904</strong>
+                    <strong>1.704</strong>
                     <span class="ml-1">Người Đã Theo Dõi</span>
                 </div>
             </div>
