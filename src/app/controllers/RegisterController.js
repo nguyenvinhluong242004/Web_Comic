@@ -1,5 +1,5 @@
 const AuthRegister = require('../models/AuthRegister'); // Import module xử lý đăng ký
-const authPass = require('../utils/authPass'); // Import module mã hóa mật khẩu
+const authPass = require('../config/authPass'); // Import module mã hóa mật khẩu
 
 class RegisterController {
 
