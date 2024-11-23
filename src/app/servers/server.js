@@ -6,7 +6,10 @@ const session = require('express-session');
 const bodyParser = require('body-parser'); // Xử lý dữ liệu từ các yêu cầu HTTP
 
 // Load biến môi trường từ file .env
-require('dotenv').config({ path: './app/config/.env' });
+require('dotenv').config({ path: './src/app/config/.env' });
+
+
+const pool = require('../config/database');
 
 const app = express();
 const port = process.env.PORT || 8888; // Sử dụng PORT từ .env hoặc mặc định là 8888
@@ -48,6 +51,17 @@ app.set('views', path.join(__dirname, '../../resources/views')); // Đặt thư 
 // Kiểm tra xem .env có được load thành công không
 console.log('Environment variables loaded:');
 console.log(`PORT: ${process.env.PORT}`);
+
+// Kiểm tra kết nối với PostgreSQL
+pool.connect((err, client, release) => {
+    if (err) {
+        return console.error('Kết nối đến PostgreSQL thất bại!', err);
+    }
+    console.log('Kết nối đến PostgreSQL thành công!');
+    release();
+});
+
+
 
 // Route init
 route(app);

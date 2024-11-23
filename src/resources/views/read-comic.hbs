@@ -89,11 +89,17 @@
 
 
             <div class="mt-2 mb-2 ml-1">
-                <button class="bi bi-heart-fill btn-heart-full"
+                <button @click="addFavor(true)" v-if="!isFavor" class="bi bi-heart-fill btn-heart-full"
                     style="font-size: 13px; height: 30px; color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 41, 15);">
                     Theo dõi </button>
-                <button class="bi bi-heart-fill btn-heart"
+                <button @click="addFavor(true)" v-if="isFavor" class="bi bi-heart-fill btn-heart-full"
+                    style="font-size: 13px; height: 30px; color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(98, 238, 5);">
+                </button>
+                <button @click="addFavor(true)" v-if="!isFavor" class="bi bi-heart-fill btn-heart"
                     style="font-size: 13px; height: 30px; color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 41, 15);">
+                </button>
+                <button @click="addFavor(true)" v-if="isFavor" class="bi bi-heart-fill btn-heart"
+                    style="font-size: 13px; height: 30px; color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(98, 238, 5);">
                 </button>
             </div>
 

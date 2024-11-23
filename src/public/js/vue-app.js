@@ -34,6 +34,17 @@ const vueApp = new Vue({
         total_page: 1,
         page: 1,
 
+        isLogin: false,
+        dataUser: [],
+        dataLevel: [],
+        dataComicFavor: [],
+        loginEmail: '',
+        loginPassword: '',
+        signupEmail: '',
+        username: '',
+        signupPassword: '',
+        confirmPassword: '',
+        isFavor: false,
     },
     methods: {
         fetchComicUpdates() {
@@ -133,6 +144,9 @@ const vueApp = new Vue({
                             }
                         });
                     }
+
+                    this.isFavor = !!this.dataComicFavor.find(item => item.id_truyen === this.comicSlug);
+
                     console.log(this.comic_detail_chaps)
                     console.log(this.domain_image + '/uploads/comics/' + this.comic_detail.thumb_url)
 
@@ -154,6 +168,8 @@ const vueApp = new Vue({
                     this.imgs_path = data.data.item.chapter_path;
                     this.imgs_comic = data.data.item.chapter_image;
                     console.log(this.imgs_comic[0]);
+
+                    this.isFavor = !!this.dataComicFavor.find(item => item.id_truyen === this.comicSlug);
 
                     // Lưu lại vào localStorage
                     sessionStorage.setItem('comicNumber', JSON.stringify(this.comicNumber));
@@ -257,14 +273,127 @@ const vueApp = new Vue({
                 dropdownMenu.scrollTop(activeItem.position().top - dropdownMenu.position().top);
             }
         },
+        getAccount() {
+            if (!this.isLogin) {
+                window.location.href = `${this.DOMAIN}login`;
+            }
+            else {
+                window.location.href = `${this.DOMAIN}account`;
+            }
+        },
+        logOut() {
+            this.isLogin = false;
+            sessionStorage.setItem('isLogin', JSON.stringify(this.isLogin));
+            window.location.href = `${this.DOMAIN}login`;
+        },
+        async login() {
+            if (this.loginEmail && this.loginPassword) {
+                try {
+                    const response = await axios.post('/login/api', {
+                        loginEmail: this.loginEmail,
+                        loginPassword: this.loginPassword
+                    });
+
+                    if (response.data.success) {
+                        alert(response.data.message);
+                        //this.goToDetailAccount();
+                        this.dataUser = response.data.dataUser || [];
+                        this.dataLevel = response.data.dataLevel || [];
+                        this.dataComicFavor = response.data.dataComicFavor || [];
+                        console.log(this.dataUser.email);
+                        this.isLogin = true;
+
+                        sessionStorage.setItem('dataComicFavor', JSON.stringify(this.dataComicFavor));
+                        sessionStorage.setItem('isLogin', JSON.stringify(this.isLogin));
+                        sessionStorage.setItem('dataUser', JSON.stringify(this.dataUser));
+                        sessionStorage.setItem('dataLevel', JSON.stringify(this.dataLevel));
+
+
+                    } else {
+                        alert(response.data.message);
+                    }
+                } catch (error) {
+                    console.error('Lỗi đăng nhập:', error);
+                    alert('Có lỗi xảy ra khi đăng nhập');
+                }
+
+                window.location.href = `${this.DOMAIN}account`;
+            } else {
+                alert('Vui lòng nhập đầy đủ thông tin đăng nhập.');
+            }
+        },
+        async signup() {
+            if (this.signupPassword !== this.confirmPassword) {
+                alert('Mật khẩu và mật khẩu xác nhận không khớp.');
+            } else if (this.signupEmail && this.signupPassword) {
+                try {
+                    const response = await axios.post('/register/api', {
+                        signupEmail: this.signupEmail,
+                        username: this.username,
+                        signupPassword: this.signupPassword
+                    });
+
+                    if (response.data.success) {
+                        alert(response.data.message);
+                        window.location.href = `${this.DOMAIN}login`;
+                    } else {
+                        alert('Có lỗi xảy ra khi đăng ký');
+                    }
+                } catch (error) {
+                    console.error('Lỗi đăng ký:', error);
+                    alert('Có lỗi xảy ra khi đăng ký');
+                }
+            } else {
+                alert('Vui lòng nhập đầy đủ thông tin đăng ký.');
+            }
+        },
+        async addFavor(sta) {
+            try {
+                let response;
+                if (sta) {
+                    response = await axios.post('/read-comic/api', {
+                        idUser: this.dataUser.id_user,
+                        idTruyen: this.comicSlug
+                    });
+                }
+                else {
+                    response = await axios.post('/detail-comic/api', {
+                        idUser: this.dataUser.id_user,
+                        idTruyen: this.comicSlug
+                    });
+                }
+
+                if (response.data.success) {
+                    alert(response.data.message);
+                    //this.goToDetailAccount();
+                    this.dataComicFavor = response.data.dataComicFavor || [];
+                    this.isFavor = response.data.favor;
+                    console.log('add');
+
+                    sessionStorage.setItem('dataComicFavor', JSON.stringify(this.dataComicFavor));
+
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (error) {
+                console.error('Lỗi:', error);
+                alert('Có lỗi xảy ra khi xử lí yêu thích');
+            }
+        },
         fetchDataStorage() {
             console.log('get');
             // this.comicSlug = JSON.parse(sessionStorage.getItem('comicSlug'));
             // this.comic_detail_chaps = JSON.parse(sessionStorage.getItem('comic_detail_chaps'));
             // this.comic_detail = JSON.parse(sessionStorage.getItem('comic_detail'));
+            this.isLogin = JSON.parse(sessionStorage.getItem('isLogin'));
+            this.dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
+            this.dataLevel = JSON.parse(sessionStorage.getItem('dataLevel'));
+            console.log(this.dataUser)
             this.comicNameSearch = JSON.parse(sessionStorage.getItem('comicNameSearch'));
             // this.comicName = JSON.parse(sessionStorage.getItem('comicName'));
             this.comicNumber = JSON.parse(sessionStorage.getItem('comicNumber'));
+            this.dataComicFavor = JSON.parse(sessionStorage.getItem('dataComicFavor'));
+            console.log(this.dataComicFavor)
             this.comics_type = JSON.parse(localStorage.getItem('comics_type'));
             if (!this.comics_type) {
                 this.fetchTypes();

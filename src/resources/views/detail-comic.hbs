@@ -24,7 +24,8 @@
                     <span>[[ comic_detail.status ]]</span>
                 </div>
                 <div class="d-flex mb-2 align-items-center">
-                    <div class="bi bi-tags-fill flex-shrink-0" style="width: 150px; text-align: left; align-self: flex-start;"> Thể loại</div>
+                    <div class="bi bi-tags-fill flex-shrink-0"
+                        style="width: 150px; text-align: left; align-self: flex-start;"> Thể loại</div>
                     <div class="d-flex flex-wrap">
                         <div v-for="(type, index) in comic_breadCrumb" class="d-flex align-items-center">
                             <span>
@@ -57,9 +58,12 @@
                 </div>
 
                 <div class="d-flex mb-2 mt-3 align-items-center">
-                    <button class="bi bi-heart-fill p-2 mr-3"
+                    <button @click="addFavor(false)" v-if="!isFavor" class="bi bi-heart-fill p-2 mr-3"
                         style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(214, 41, 15);">
                         Theo dõi </button>
+                    <button @click="addFavor(false)" v-if="isFavor" class="bi bi-heart-fill p-2 mr-3"
+                        style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(98, 238, 5);">
+                    </button>
                     <strong>1.704</strong>
                     <span class="ml-1">Người Đã Theo Dõi</span>
                 </div>

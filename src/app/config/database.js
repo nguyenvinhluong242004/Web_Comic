@@ -12,4 +12,6 @@ const pool = new Pool({
     },
 });
 
+console.log(process.env.DTB_USER)
+
 module.exports = pool;

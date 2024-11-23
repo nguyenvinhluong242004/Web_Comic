@@ -1,0 +1,35 @@
+<div class="login">
+    <h6 class="pl-2">
+        <a :href="DOMAIN" style="color: rgb(0, 85, 255);">Trang chủ</a>
+        »
+        <a href="#" style="color: rgb(0, 85, 255);">Đăng ký</a>
+    </h6>
+    <hr color="blue" style="margin: 2px; height: 0.3px;">
+
+    <div class="card p-4 d-flex mx-auto mt-3" style="max-width: 600px; width: 100%;">
+        <h3 class="text-center mb-4">ĐĂNG KÝ</h3>
+        <form @submit.prevent="signup">
+            <div class="mb-3">
+                <label for="name" class="form-label">Email</label>
+                <input type="text" class="form-control" id="username" v-model="username" placeholder="Nhập tên" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="signupEmail" v-model="signupEmail" placeholder="Nhập email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input type="password" class="form-control" id="signupPassword" v-model="signupPassword" placeholder="Nhập mật khẩu" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Nhập lại mật khẩu</label>
+                <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+            </div>
+            <div class="d-flex justify-content-center mb-3">
+                <a :href="DOMAIN+'login'" class="text-decoration-none">Đã có tài khoản? Đăng nhập</a>
+            </div>
+            <button type="submit" class="btn btn-warning w-100 fw-bold">Đăng ký</button>
+        </form>
+    </div>
+
+</div>
