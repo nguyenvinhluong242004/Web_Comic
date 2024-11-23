@@ -1,5 +1,4 @@
 const pool = require('../config/database'); // Kết nối đến cơ sở dữ liệu
-const authPass = require('../utils/authPass'); // Module xác thực mật khẩu (nếu có)
 
 class DataProvider {
     /**
