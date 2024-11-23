@@ -309,6 +309,7 @@ const vueApp = new Vue({
                         sessionStorage.setItem('dataLevel', JSON.stringify(this.dataLevel));
 
 
+                        window.location.href = `${this.DOMAIN}account`;
                     } else {
                         alert(response.data.message);
                     }
@@ -317,7 +318,6 @@ const vueApp = new Vue({
                     alert('Có lỗi xảy ra khi đăng nhập');
                 }
 
-                window.location.href = `${this.DOMAIN}account`;
             } else {
                 alert('Vui lòng nhập đầy đủ thông tin đăng nhập.');
             }
