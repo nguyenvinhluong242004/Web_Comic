@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt'); // Băm mật khẩu ( 1 chiều )
+const bcrypt = require('bcrypt'); // Băm mật khẩu ( 1 chiều ) 
 
 // Xác thực mật khẩu với mật khẩu đã băm
 async function verifyPassword(password, hashedPassword) {
