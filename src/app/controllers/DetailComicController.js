@@ -10,9 +10,9 @@ class DetailComicController {
     }
 
     // [POST] /api/detai-comic/favor
-    async callAPI(req, res) {
-        const { idUser, idTruyen } = req.body;
-        console.log(idUser + idTruyen)
+    async callAPIFavor(req, res) {
+        const { idUser, idTruyen, tenTruyen } = req.body;
+        console.log(idUser + idTruyen + tenTruyen)
 
         try {
             // Kiểm tra xem truyện đã có trong danh sách yêu thích của người dùng chưa
@@ -24,7 +24,7 @@ class DetailComicController {
                 console.log('Truyện đã bị xóa khỏi danh sách yêu thích');
             } else {
                 // Nếu chưa có, thêm truyện vào danh sách yêu thích
-                await AuthFavor.addFavor(idUser, idTruyen);
+                await AuthFavor.addFavor(idUser, idTruyen, tenTruyen);
                 console.log('Truyện đã được thêm vào danh sách yêu thích');
                 status = true;
             }
@@ -33,6 +33,28 @@ class DetailComicController {
 
             console.log(dataComicFavor)
             return res.json({ success: true, dataComicFavor: dataComicFavor, favor: status, message: 'Done yêu thích' });
+
+        } catch (err) {
+            console.error('Lỗi khi xử lý yêu thích!', err);
+            res.status(500).json({ error: 'Có lỗi xảy ra khi xử lý yêu thích' });
+        }
+    };
+
+    // [POST] /api/detai-comic/comment
+    async callAPIComment(req, res) {
+        const { require, idUser, idTruyen, comment } = req.body;
+        console.log(require + idUser + idTruyen + comment)
+
+        try {
+            if (require) {
+
+                await DataProvider.commentComic(idUser, idTruyen, comment);
+            }
+
+            const listCommentComic = await DataProvider.getAllCommentComic(idTruyen);
+
+            console.log(listCommentComic)
+            return res.json({ success: true, listCommentComic: listCommentComic, message: 'Done comment' });
 
         } catch (err) {
             console.error('Lỗi khi xử lý yêu thích!', err);

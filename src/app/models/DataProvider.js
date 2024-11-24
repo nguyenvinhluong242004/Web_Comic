@@ -20,6 +20,20 @@ class DataProvider {
             throw new Error('Lỗi truy vấn cơ sở dữ liệu');
         }
     }
+    static async getAccountByID(id_user) {
+        try {
+            const result = await pool.query(
+                `SELECT * 
+                 FROM Users 
+                 WHERE id_user = $1`,
+                [id_user]
+            );
+            return result.rows.length > 0 ? result.rows[0] : null;
+        } catch (err) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
+            throw new Error('Lỗi truy vấn cơ sở dữ liệu');
+        }
+    }
     /**
      * Lấy tên cấp độ của User
      * @param {int} id_user - ID người dùng
@@ -50,21 +64,118 @@ class DataProvider {
         }
     }
     /**
- * Lấy tất cả truyện yêu thích của người dùng
- * @param {int} id_user - ID người dùng
- * @returns {Promise<Array>} - Trả về danh sách truyện yêu thích hoặc mảng rỗng nếu không có truyện yêu thích
- */
+     * Lấy tất cả truyện yêu thích của người dùng
+     * @param {int} id_user - ID người dùng
+     * @returns {Promise<Array>} - Trả về danh sách truyện yêu thích hoặc mảng rỗng nếu không có truyện yêu thích
+     */
     static async getAllFavorites(id_user) {
         try {
             // Truy vấn bảng ComicFavor để lấy tất cả truyện yêu thích của người dùng
             const result = await pool.query(
-                `SELECT cf.ID_Truyen
+                `SELECT cf.ID_Truyen, cf.Ten_Truyen
                 FROM ComicFavor cf
                 WHERE cf.ID_User = $1`,
                 [id_user]
             );
 
             // Trả về danh sách truyện yêu thích
+            return result.rows.length > 0 ? result.rows : [];
+        } catch (err) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
+            throw new Error('Lỗi truy vấn cơ sở dữ liệu');
+        }
+    }
+    /**
+     * Lấy tất cả comment
+     * @param {int} id_user - ID người dùng
+     * @param {string} id_truyen - ID truyện
+     * @param {string} id_chapter - ID chapter
+     * @returns {Promise<Array>} - Trả về 
+     */
+    static async commentComic(id_user, id_truyen, content) {
+        try {
+            const currentDate = new Date(); // Lấy thời gian hiện tại
+            await pool.query(
+                `INSERT INTO CommentComic (ID_User, ID_Truyen, ID_Chapter, Content, Total_Favor, ID_User_Respond, Date) 
+                VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+                [id_user, id_truyen, null, content, 0, null, currentDate]
+            );
+            console.log("Đã thêm comment comic");
+        } catch (err) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
+            throw new Error('Lỗi truy vấn cơ sở dữ liệu');
+        }
+    }
+
+    static async getAllCommentComic(id_truyen) {
+        try {
+            const result = await pool.query(
+                `SELECT 
+                    cc.ID_User,
+                    cc.ID_Truyen,
+                    cc.Content,
+                    cc.Date,
+                    u.Username,
+                    nl.Name AS LevelName,
+                    nl.Level
+                 FROM 
+                    CommentComic cc
+                 JOIN 
+                    Users u ON cc.ID_User = u.ID_User
+                 LEFT JOIN 
+                    LevelUser lu ON cc.ID_User = lu.ID_User
+                 LEFT JOIN 
+                    NameLevel nl ON lu.Level = nl.Level AND lu.Type = nl.Type
+                 WHERE 
+                    cc.ID_Truyen = $1 
+                    AND cc.ID_Chapter IS NULL`,
+                [id_truyen]
+            );
+
+            return result.rows.length > 0 ? result.rows : [];
+        } catch (err) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
+            throw new Error('Lỗi truy vấn cơ sở dữ liệu');
+        }
+    }
+    static async commentChapter(id_user, id_truyen, id_chapter, content) {
+        try {
+            const currentDate = new Date(); // Lấy thời gian hiện tại
+            await pool.query(
+                `INSERT INTO CommentComic (ID_User, ID_Truyen, ID_Chapter, Content, Total_Favor, ID_User_Respond, Date) 
+                VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+                [id_user, id_truyen, id_chapter, content, 0, null, currentDate]
+            );
+            console.log("Đã thêm comment cho comic chapter");
+        } catch (err) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
+            throw new Error('Lỗi truy vấn cơ sở dữ liệu');
+        }
+    }
+    
+    static async getAllCommentChapter(id_truyen, id_chapter) {
+        try {
+            const result = await pool.query(
+                `SELECT 
+                    cc.ID_User,
+                    cc.ID_Truyen,
+                    cc.Content,
+                    cc.Date,
+                    u.Username,
+                    nl.Name AS LevelName,
+                    nl.Level
+                 FROM 
+                    CommentComic cc
+                 JOIN 
+                    Users u ON cc.ID_User = u.ID_User
+                 LEFT JOIN 
+                    LevelUser lu ON cc.ID_User = lu.ID_User
+                 LEFT JOIN 
+                    NameLevel nl ON lu.Level = nl.Level AND lu.Type = nl.Type
+                WHERE cc.ID_Truyen = $1 AND cc.ID_Chapter = $2`,
+                [id_truyen, id_chapter]
+            );
+
             return result.rows.length > 0 ? result.rows : [];
         } catch (err) {
             console.error('Lỗi truy vấn cơ sở dữ liệu!', err);

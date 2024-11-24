@@ -27,11 +27,11 @@ class AuthFavor {
      * @param {number} idUser - ID người dùng
      * @param {number} idTruyen - ID truyện
      */
-    static async addFavor(idUser, idTruyen) {
+    static async addFavor(idUser, idTruyen, tenTruyen) {
         try {
             await pool.query(
-                `INSERT INTO ComicFavor (ID_User, ID_Truyen) VALUES ($1, $2)`,
-                [idUser, idTruyen]
+                `INSERT INTO ComicFavor (ID_User, ID_Truyen, Ten_Truyen) VALUES ($1, $2, $3)`,
+                [idUser, idTruyen, tenTruyen]
             );
             console.log('Đã thêm truyện vào danh sách yêu thích!');
         } catch (err) {

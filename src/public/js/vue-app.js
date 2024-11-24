@@ -21,6 +21,7 @@ const vueApp = new Vue({
         comic_detail_chaps: [],
         comicName: '',
         comicNumber: 1,
+        comicID: '',
         comicSlug: '',
         imgs_comic: [],
         imgs_path: '',
@@ -45,6 +46,10 @@ const vueApp = new Vue({
         signupPassword: '',
         confirmPassword: '',
         isFavor: false,
+
+        comment: '',
+        listCommentComic: [],
+        isViewCmt: false,
     },
     methods: {
         fetchComicUpdates() {
@@ -144,8 +149,9 @@ const vueApp = new Vue({
                             }
                         });
                     }
-
-                    this.isFavor = !!this.dataComicFavor.find(item => item.id_truyen === this.comicSlug);
+                    if (this.isLogin) {
+                        this.isFavor = !!this.dataComicFavor.find(item => item.id_truyen === this.comicSlug);
+                    }
 
                     console.log(this.comic_detail_chaps)
                     console.log(this.domain_image + '/uploads/comics/' + this.comic_detail.thumb_url)
@@ -164,12 +170,15 @@ const vueApp = new Vue({
                 .then(response => response.json())
                 .then(data => {
                     this.domain_cdn_read = data.data.domain_cdn;
+                    this.comicID = data.data.item._id;
                     console.log(data.data);
                     this.imgs_path = data.data.item.chapter_path;
                     this.imgs_comic = data.data.item.chapter_image;
                     console.log(this.imgs_comic[0]);
 
-                    this.isFavor = !!this.dataComicFavor.find(item => item.id_truyen === this.comicSlug);
+                    if (this.isLogin) {
+                        this.isFavor = !!this.dataComicFavor.find(item => item.id_truyen === this.comicSlug);
+                    }
 
                     // Lưu lại vào localStorage
                     sessionStorage.setItem('comicNumber', JSON.stringify(this.comicNumber));
@@ -348,18 +357,24 @@ const vueApp = new Vue({
             }
         },
         async addFavor(sta) {
+            if (!this.isLogin) {
+                alert('Hãy đăng nhập');
+                return;
+            }
             try {
                 let response;
                 if (sta) {
-                    response = await axios.post('/read-comic/api', {
+                    response = await axios.post('/read-comic/api/favor', {
                         idUser: this.dataUser.id_user,
-                        idTruyen: this.comicSlug
+                        idTruyen: this.comicSlug,
+                        tenTruyen: this.comicName
                     });
                 }
                 else {
-                    response = await axios.post('/detail-comic/api', {
+                    response = await axios.post('/detail-comic/api/favor', {
                         idUser: this.dataUser.id_user,
-                        idTruyen: this.comicSlug
+                        idTruyen: this.comicSlug,
+                        tenTruyen: this.comicName
                     });
                 }
 
@@ -371,6 +386,51 @@ const vueApp = new Vue({
                     console.log('add');
 
                     sessionStorage.setItem('dataComicFavor', JSON.stringify(this.dataComicFavor));
+
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (error) {
+                console.error('Lỗi:', error);
+                alert('Có lỗi xảy ra khi xử lí yêu thích');
+            }
+        },
+        async submitComment(sta, rq) {
+            if (rq && !this.isLogin) {
+                alert('Hãy đăng nhập');
+                return;
+            }
+            if (rq && this.comment.trim() === ''){
+                alert('Hãy nhập nội dung');
+                return;
+            }
+            try {
+                let response;
+                if (sta) {
+                    response = await axios.post('/read-comic/api/comment', {
+                        require: rq,
+                        idUser: this.dataUser?.id_user || '',
+                        idTruyen: this.comicSlug,
+                        idChapter: this.comicID,
+                        comment: this.comment
+                    });
+                }
+                else {
+                    response = await axios.post('/detail-comic/api/comment', {
+                        require: rq,
+                        idUser: this.dataUser?.id_user || '',
+                        idTruyen: this.comicSlug,
+                        comment: this.comment
+                    });
+                }
+
+                if (response.data.success) {
+                    alert(response.data.message);
+
+                    this.listCommentComic = response.data.listCommentComic;
+                    console.log(this.listCommentComic)
+                    this.comment = '';
+                    this.isViewCmt = true;
 
                 } else {
                     alert(response.data.message);

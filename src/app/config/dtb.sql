@@ -1,8 +1,8 @@
 -- Xóa bảng nếu đã tồn tại
 DROP TABLE IF EXISTS ComicFavor;
-DROP TABLE IF EXISTS Comment;
-DROP TABLE IF EXISTS NameLevel;
+DROP TABLE IF EXISTS CommentComic;
 DROP TABLE IF EXISTS LevelUser;
+DROP TABLE IF EXISTS NameLevel;
 DROP TABLE IF EXISTS Users;
 
 
@@ -36,12 +36,15 @@ CREATE TABLE LevelUser (
     CONSTRAINT fk_name_level FOREIGN KEY (Level, Type) REFERENCES NameLevel(Level, Type)
 );
 
--- Tạo bảng Comment
-CREATE TABLE Comment (
+-- Tạo bảng CommentComic
+CREATE TABLE CommentComic (
     ID_Cmt SERIAL PRIMARY KEY,
     ID_User INT NOT NULL,
+    ID_Truyen VARCHAR(50) NOT NULL,
+    ID_Chapter VARCHAR(50),
     Content TEXT NOT NULL,
     Total_Favor INT,
+    Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     ID_User_Respond INT,
     CONSTRAINT fk_user_comment FOREIGN KEY (ID_User) REFERENCES Users(ID_User),
     CONSTRAINT fk_user_respond FOREIGN KEY (ID_User_Respond) REFERENCES Users(ID_User)
@@ -52,6 +55,7 @@ CREATE TABLE ComicFavor (
     ID_Favor SERIAL PRIMARY KEY,
     ID_User INT NOT NULL,
     ID_Truyen VARCHAR(50) NOT NULL,
+    Ten_Truyen VARCHAR(50) NOT NULL,
     CONSTRAINT fk_user_favor FOREIGN KEY (ID_User) REFERENCES Users(ID_User)
 );
 

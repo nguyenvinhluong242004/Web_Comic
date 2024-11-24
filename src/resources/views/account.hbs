@@ -42,7 +42,7 @@
                     <ul class="dropdown-menu" aria-labelledby="favorite-list">
                         <li v-for="comic in dataComicFavor" :key="comic.id_truyen">
                             <a class="dropdown-item" :href="DOMAIN + 'detail-comic?id=' + comic.id_truyen">
-                                [[ comic.id_truyen ]]
+                                [[ comic.ten_truyen ]]
                             </a>
                         </li>
                     </ul>
