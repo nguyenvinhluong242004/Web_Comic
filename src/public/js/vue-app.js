@@ -522,7 +522,7 @@ const vueApp = new Vue({
             const comicId = urlParams.get('id');
             const comicNumber = parseInt(urlParams.get('num'), 10)
             const chapterName = urlParams.get('chapter-name');
-            if (comicNumber !== this.comicNumber) {
+            if (this.isLogin && comicNumber !== this.comicNumber) {
                 this.addTotalchaps();
             }
             if (comicSlug) {
