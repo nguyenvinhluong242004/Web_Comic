@@ -25,7 +25,7 @@ class LoginController {
                     console.log(loginEmail)
                     const dataLevel = await DataProvider.getLevelByID(account.id_user);
                     const dataComicFavor = await DataProvider.getAllFavorites(account.id_user);
-                    const totalChaps = await DataProvider.getTotalChap(idUser);
+                    const totalChaps = await DataProvider.getTotalChap(account.idUser);
 
                     console.log(dataComicFavor)
 
