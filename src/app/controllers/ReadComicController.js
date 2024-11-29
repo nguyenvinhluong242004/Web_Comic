@@ -61,6 +61,28 @@ class ReadComicController {
         }
     };
 
+    // [POST] /api/read-comic/getTotal
+    async callAPITotal(req, res) {
+        const { idUser } = req.body;
+        console.log(idUser)
+
+        try {
+            if (require) {
+
+                await DataProvider.totalChapter(idUser);
+            }
+
+            const totalChaps = await DataProvider.getTotalChap(idUser);
+
+            console.log(totalChaps)
+            return res.json({ success: true, totalChaps: totalChaps, message: 'Done total' });
+
+        } catch (err) {
+            console.error('Lỗi khi xử lý yêu thích!', err);
+            res.status(500).json({ error: 'Có lỗi xảy ra khi xử lý yêu thích' });
+        }
+    };
+
 }
 
 module.exports = new ReadComicController;

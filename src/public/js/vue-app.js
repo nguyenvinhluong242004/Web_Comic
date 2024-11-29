@@ -37,6 +37,7 @@ const vueApp = new Vue({
 
         isLogin: false,
         dataUser: [],
+        dataUserTotalChaps: 0,
         dataLevel: [],
         dataComicFavor: [],
         loginEmail: '',
@@ -67,7 +68,7 @@ const vueApp = new Vue({
                 .catch(error => console.error('Error fetching comics:', error));
         },
         fetchComicCompletes() {
-            fetch(`https://otruyenapi.com/v1/api/danh-sach/hoan-thanh?page=${this.getRandomPage()}`)
+            fetch(`https://otruyenapi.com/v1/api/the-loai/manhua?page=${this.getRandomPage()}`)
                 .then(response => response.json())
                 .then(data => {
                     this.comics_complete = data.data.items;
@@ -179,11 +180,30 @@ const vueApp = new Vue({
                     if (this.isLogin) {
                         this.isFavor = !!this.dataComicFavor.find(item => item.id_truyen === this.comicSlug);
                     }
-
                     // Lưu lại vào localStorage
                     sessionStorage.setItem('comicNumber', JSON.stringify(this.comicNumber));
                 })
                 .catch(error => console.error('Error fetching comic details:', error));
+        },
+        async addTotalchaps() {
+            try {
+                const response = await axios.post('/read-comic/api/getTotal', {
+                    idUser: this.dataUser.id_user,
+                });
+
+                if (response.data.success) {
+                    console.log(response.data.totalChaps)
+                    this.dataUserTotalChaps = response.data.totalChaps.total_chaps || 0;
+
+                    
+                    sessionStorage.setItem('dataUserTotalChaps', JSON.stringify(this.dataUserTotalChaps));
+                } else {
+                    alert('Có lỗi xảy ra khi đăng ký');
+                }
+            } catch (error) {
+                console.error('Lỗi đăng ký:', error);
+                alert('Có lỗi xảy ra khi đăng ký');
+            }
         },
         searchComic() {
             if ($('#txtInput').val().trim()) {
@@ -267,7 +287,7 @@ const vueApp = new Vue({
         },
         getRandomPage() {
             const min = 1;
-            const max = 147;
+            const max = 240;
             return Math.floor(Math.random() * (max - min + 1)) + min;
         },
         changeIsShow(sta) {
@@ -309,6 +329,7 @@ const vueApp = new Vue({
                         this.dataUser = response.data.dataUser || [];
                         this.dataLevel = response.data.dataLevel || [];
                         this.dataComicFavor = response.data.dataComicFavor || [];
+                        this.dataUserTotalChaps = response.data.totalChaps.total_chaps || 0;
                         console.log(this.dataUser.email);
                         this.isLogin = true;
 
@@ -400,7 +421,7 @@ const vueApp = new Vue({
                 alert('Hãy đăng nhập');
                 return;
             }
-            if (rq && this.comment.trim() === ''){
+            if (rq && this.comment.trim() === '') {
                 alert('Hãy nhập nội dung');
                 return;
             }
@@ -447,6 +468,7 @@ const vueApp = new Vue({
             // this.comic_detail = JSON.parse(sessionStorage.getItem('comic_detail'));
             this.isLogin = JSON.parse(sessionStorage.getItem('isLogin'));
             this.dataUser = JSON.parse(sessionStorage.getItem('dataUser'));
+            this.dataUserTotalChaps = JSON.parse(sessionStorage.getItem('dataUserTotalChaps'));
             this.dataLevel = JSON.parse(sessionStorage.getItem('dataLevel'));
             console.log(this.dataUser)
             this.comicNameSearch = JSON.parse(sessionStorage.getItem('comicNameSearch'));
@@ -500,6 +522,9 @@ const vueApp = new Vue({
             const comicId = urlParams.get('id');
             const comicNumber = parseInt(urlParams.get('num'), 10)
             const chapterName = urlParams.get('chapter-name');
+            if (comicNumber !== this.comicNumber) {
+                this.addTotalchaps();
+            }
             if (comicSlug) {
                 console.log(comicId)
                 console.log(comicNumber)

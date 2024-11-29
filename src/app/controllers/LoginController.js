@@ -25,6 +25,7 @@ class LoginController {
                     console.log(loginEmail)
                     const dataLevel = await DataProvider.getLevelByID(account.id_user);
                     const dataComicFavor = await DataProvider.getAllFavorites(account.id_user);
+                    const totalChaps = await DataProvider.getTotalChap(idUser);
 
                     console.log(dataComicFavor)
 
@@ -32,7 +33,7 @@ class LoginController {
                     //dataTempServer.setDataUser(account);
 
                     console.log('Đăng nhập thành công');
-                    return res.json({ success: true, dataUser: account, dataLevel: dataLevel, dataComicFavor: dataComicFavor, message: 'Đăng nhập thành công' });
+                    return res.json({ success: true, dataUser: account, dataLevel: dataLevel, dataComicFavor: dataComicFavor, totalChaps: totalChaps, message: 'Đăng nhập thành công' });
                 } else {
                     console.log('Email hoặc mật khẩu không đúng');
                     return res.json({ success: false, message: 'Email hoặc mật khẩu không đúng' });

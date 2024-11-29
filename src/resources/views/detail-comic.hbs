@@ -167,21 +167,26 @@
 
         <!-- Khu vực nhập bình luận -->
 
-        <div class="mb-1 mt-3">
-            <textarea class="form-control" rows="3" maxlength="150" id="comment" v-model="comment"
-                placeholder="Mời bạn thảo luận, vui lòng không spam, share link kiếm tiền, thiếu lành mạnh,... để tránh bị khóa tài khoản"></textarea>
+        <div v-if="isLogin">
+            <div class="mb-1 mt-3">
+                <textarea class="form-control" rows="3" maxlength="150" id="comment" v-model="comment"
+                    placeholder="Mời bạn thảo luận, vui lòng không spam, share link kiếm tiền, thiếu lành mạnh,... để tránh bị khóa tài khoản"></textarea>
+            </div>
+
+            <button @click="submitComment(false, true)" class="p-0 mb-3 pr-3 pl-3"
+                style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(15, 95, 214);">
+                Gửi </button>
         </div>
 
-        <button @click="submitComment(false, true)" class="p-0 mb-3 pr-3 pl-3"
-            style="color: #fff; border: none; text-align: left; border-radius: 4px; background-color: rgb(15, 95, 214);">
-            Gửi </button>
+        <div v-if="!isLogin" class="mb-3 mt-2 p-1 d-flex justify-content-center" style="background-color: #5a575a6c; color: rgb(0, 0, 0);">
+            Vui lòng đăng nhập để bình luận!!!
+        </div>
 
         <!-- Danh sách bình luận -->
         <div v-if="!isViewCmt" class="mb-3">
             <div class="card-comment d-flex">
                 <div class="mr-2">
-                    <img src="img/admin.jpg"
-                        class="" style="width: 50px; border: 1px solid seashell;" alt="Avatar">
+                    <img src="img/admin.jpg" class="" style="width: 50px; border: 1px solid seashell;" alt="Avatar">
                 </div>
                 <div class="flex-grow-1">
                     <div class="" style="border: 1px solid black;">
@@ -207,8 +212,7 @@
         <div v-if="isViewCmt" class="mb-3">
             <div class="card-comment d-flex" v-for="cmt in listCommentComic">
                 <div class="mr-2">
-                    <img src="img/user.jpg"
-                        class="" style="width: 50px; border: 1px solid seashell;" alt="Avatar">
+                    <img src="img/user.jpg" class="" style="width: 50px; border: 1px solid seashell;" alt="Avatar">
                 </div>
                 <div class="flex-grow-1">
                     <div class="" style="border: 1px solid black;">
@@ -225,7 +229,8 @@
                     </div>
 
                     <div class="d-flex small text-muted align-items-center">
-                        <p class="text-muted mb-1 small" style="font-size: 13px;">[[ formatTimeDifference(cmt.date) ]]</p>
+                        <p class="text-muted mb-1 small" style="font-size: 13px;">[[ formatTimeDifference(cmt.date) ]]
+                        </p>
                     </div>
                 </div>
             </div>

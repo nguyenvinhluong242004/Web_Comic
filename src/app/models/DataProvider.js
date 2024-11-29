@@ -138,6 +138,7 @@ class DataProvider {
             throw new Error('Lỗi truy vấn cơ sở dữ liệu');
         }
     }
+
     static async commentChapter(id_user, id_truyen, id_chapter, content) {
         try {
             const currentDate = new Date(); // Lấy thời gian hiện tại
@@ -182,6 +183,41 @@ class DataProvider {
             throw new Error('Lỗi truy vấn cơ sở dữ liệu');
         }
     }
+
+    static async totalChapter(id_user) {
+        try {
+            // Tăng Total_Chaps lên 1 trong bảng LevelUser
+            await pool.query(
+                `UPDATE LevelUser 
+                 SET Total_Chaps = Total_Chaps + 1 
+                 WHERE ID_User = $1`,
+                [id_user]
+            );
+    
+            console.log("Đã cập nhật Total_Chaps trong LevelUser");
+        } catch (err) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
+            throw new Error('Lỗi truy vấn cơ sở dữ liệu');
+        }
+    }
+
+    static async getTotalChap(id_user) {
+        try {
+            const result = await pool.query(
+                `SELECT *
+                 FROM LevelUser 
+                 WHERE ID_User = $1`,
+                [id_user]
+            );
+    
+            return result.rows.length > 0 ? result.rows[0] : [];
+        } catch (err) {
+            console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
+            throw new Error('Lỗi truy vấn cơ sở dữ liệu');
+        }
+    }
+    
+    
 }
 
 module.exports = DataProvider;
