@@ -334,6 +334,7 @@ const vueApp = new Vue({
                         this.isLogin = true;
 
                         sessionStorage.setItem('dataComicFavor', JSON.stringify(this.dataComicFavor));
+                        sessionStorage.setItem('dataUserTotalChaps', JSON.stringify(this.dataUserTotalChaps));
                         sessionStorage.setItem('isLogin', JSON.stringify(this.isLogin));
                         sessionStorage.setItem('dataUser', JSON.stringify(this.dataUser));
                         sessionStorage.setItem('dataLevel', JSON.stringify(this.dataLevel));
@@ -382,6 +383,9 @@ const vueApp = new Vue({
                 alert('Hãy đăng nhập');
                 return;
             }
+            console.log(this.dataUser.id_user)
+            console.log(this.comicSlug)
+            console.log(this.comicName)
             try {
                 let response;
                 if (sta) {
@@ -480,6 +484,8 @@ const vueApp = new Vue({
             if (!this.comics_type) {
                 this.fetchTypes();
             }
+            
+            console.log(this.dataUserTotalChaps);
         }
     },
     computed: {

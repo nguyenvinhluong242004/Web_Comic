@@ -4,7 +4,7 @@ const readComicController = require('../app/controllers/ReadComicController');
 
 router.post('/api/getTotal', readComicController.callAPITotal);
 router.post('/api/comment', readComicController.callAPIComment);
-router.post('/api', readComicController.callAPIFavor);
+router.post('/api/favor', readComicController.callAPIFavor);
 router.get('/', readComicController.index);
 
 module.exports = router;
