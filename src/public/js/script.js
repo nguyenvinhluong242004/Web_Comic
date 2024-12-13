@@ -51,10 +51,10 @@ $(document).ready(function () {
     $(document).on('wheel', function (e) {
         if (e.originalEvent.deltaY > 0) {
             console.log('Lăn xuống');
-            $('.btn-up').show();
+            $('.btn-up').hide();
         } else if (e.originalEvent.deltaY < 0) {
             console.log('Lăn lên');
-            $('.btn-up').hide();
+            $('.btn-up').show();
         }
     });
 
