@@ -47,6 +47,18 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('touchend', function (e) {
+        endY = e.originalEvent.changedTouches[0].clientY; // Lấy tọa độ Y lúc kết thúc
+
+        if (startY > endY + 50) {
+            console.log('Vuốt lên');
+            $('.btn-up').hide();
+        } else if (startY < endY - 50) {
+            console.log('Vuốt xuống');
+            $('.btn-up').show();
+        }
+    });
+
     // Xử lý sự kiện lăn chuột (cho thiết bị desktop)
     $(document).on('wheel', function (e) {
         if (e.originalEvent.deltaY > 0) {
