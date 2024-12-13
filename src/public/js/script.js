@@ -38,22 +38,10 @@ $(document).ready(function () {
     $(document).on('touchmove', function (e) {
         endY = e.originalEvent.changedTouches[0].clientY; // Lấy tọa độ Y lúc kết thúc
 
-        if (startY > endY + 50) {
+        if (startY > endY + 24) {
             console.log('Vuốt lên');
             $('.btn-up').hide();
-        } else if (startY < endY - 50) {
-            console.log('Vuốt xuống');
-            $('.btn-up').show();
-        }
-    });
-
-    $(document).on('touchend', function (e) {
-        endY = e.originalEvent.changedTouches[0].clientY; // Lấy tọa độ Y lúc kết thúc
-
-        if (startY > endY + 50) {
-            console.log('Vuốt lên');
-            $('.btn-up').hide();
-        } else if (startY < endY - 50) {
+        } else if (startY < endY - 24) {
             console.log('Vuốt xuống');
             $('.btn-up').show();
         }
