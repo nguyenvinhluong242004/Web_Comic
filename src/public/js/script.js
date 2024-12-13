@@ -47,6 +47,10 @@ $(document).ready(function () {
         }
     });
 
+    $(document).on('touchend', function (e) {
+        endY = e.originalEvent.changedTouches[0].clientY; // Lấy tọa độ Y lúc kết thúc
+    });
+
     // Xử lý sự kiện lăn chuột (cho thiết bị desktop)
     $(document).on('wheel', function (e) {
         if (e.originalEvent.deltaY > 0) {
