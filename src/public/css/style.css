@@ -208,3 +208,26 @@ body {
         max-width: calc(100% / 2);
     }
 }
+
+.btn-up {
+    position: fixed;      
+    bottom: 3px;         
+    right: 3px;           
+    background-color: #8383837e; 
+    color: rgba(255, 115, 0, 0.856);          
+    border: none;          
+    width: 40px;          
+    height: 30px;     
+    border-radius: 10px;    
+    display: flex;         
+    align-items: center;  
+    justify-content: center; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;       
+    z-index: 1002;        
+}
+
+.btn-up:active {
+    background-color: #838383b2; 
+    border: none;
+}
