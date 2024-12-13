@@ -27,6 +27,8 @@ $(document).ready(function () {
         $('html, body').animate({ scrollTop: 0 }, 'slow');
     });
 
+    $('.btn-up').hide();
+
     let startY = 0; // Vị trí Y khi bắt đầu vuốt
     let endY = 0;   // Vị trí Y khi kết thúc vuốt
 
