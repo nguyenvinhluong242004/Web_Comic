@@ -44,11 +44,8 @@
                                 <li v-for="type in comics_type"><a class="dropdown-item" :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name]]</a></li>
                             </ul>
                         </div>
-                        <div v-if="isLogin" class="mr-3 d-flex align-items-center justify-content-center">
-                            <i @click="getAccount" class="bi bi-person-circle" style="cursor: pointer; font-size: 24px; color: #15fd00;"></i>
-                        </div>
-                        <div v-if="!isLogin" class="mr-3 d-flex align-items-center justify-content-center">
-                            <i @click="getAccount" class="bi bi-person-circle" style="cursor: pointer; font-size: 24px; color: #fff;"></i>
+                        <div id="icUser" class="mr-3 d-flex align-items-center justify-content-center" style="color: #fff;">
+                            <i @click="getAccount" class="bi bi-person-circle" style="cursor: pointer; font-size: 24px;"></i>
                         </div>
                         <div class="btn-menu mr-3"
                             style="width: 30px; background-color: rgb(255, 187, 0); border-radius: 3px;">
@@ -86,22 +83,22 @@
                                 </ul>
                             </li>
                             <li class="nav-item border-end pe-3">
-                                <a class="nav-link" href="#">TÌM TRUYỆN</a>
+                                <a class="nav-link" :href="DOMAIN+'type?name=' + 'chuyen-sinh' +'&page=1'">CHUYỂN SINH</a>
                             </li>
                             <li class="nav-item border-end pe-3">
-                                <a class="nav-link" href="#">MANHUA</a>
+                                <a class="nav-link" :href="DOMAIN+'type?name=' + 'manhua' +'&page=1'">MANHUA</a>
                             </li>
                             <li class="nav-item border-end pe-3">
-                                <a class="nav-link" href="#">MANHWA</a>
+                                <a class="nav-link" :href="DOMAIN+'type?name=' + 'manhwa' +'&page=1'">MANHWA</a>
                             </li>
                             <li class="nav-item border-end pe-3">
-                                <a class="nav-link" href="#">NGÔN TÌNH</a>
+                                <a class="nav-link" :href="DOMAIN+'type?name=' + 'ngon-tinh' +'&page=1'">NGÔN TÌNH</a>
                             </li>
                             <li class="nav-item border-end pe-3">
-                                <a class="nav-link" href="#">CON GÁI</a>
+                                <a class="nav-link" :href="DOMAIN+'type?name=' + 'trinh-tham' +'&page=1'">TRINH THÁM</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">CON TRAI</a>
+                                <a class="nav-link" :href="DOMAIN+'type?name=' + 'viet-nam' +'&page=1'">VIỆT NAM</a>
                             </li>
                         </ul>
                     </div>

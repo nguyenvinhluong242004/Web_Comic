@@ -484,6 +484,10 @@ const vueApp = new Vue({
             if (!this.comics_type) {
                 this.fetchTypes();
             }
+            // if (this.isLogin) {
+            //     console.log('hhh')
+            //     $('#icUser').css('color', '#15fd00');
+            // }
             
             console.log(this.dataUserTotalChaps);
         }
