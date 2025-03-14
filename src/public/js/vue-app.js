@@ -3,8 +3,8 @@ const vueApp = new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
     data: {
-        DOMAIN: 'https://comic-sv1.onrender.com/',
-        //DOMAIN: 'http://localhost:8888/',
+        //DOMAIN: 'https://comic-sv1.onrender.com/',
+        DOMAIN: 'http://localhost:8888/',
         domain_image: 'https://img.otruyenapi.com',
         domain_cdn_read: '',
         middle_domain: '/uploads/comics/',
