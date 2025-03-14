@@ -3,8 +3,8 @@ const vueApp = new Vue({
     el: '#app',
     delimiters: ['[[', ']]'],
     data: {
-        //DOMAIN: 'https://comic-sv1.onrender.com/',
-        DOMAIN: 'http://localhost:8888/',
+        DOMAIN: 'https://comic-sv1.onrender.com/',
+        //DOMAIN: 'http://localhost:8888/',
         domain_image: 'https://img.otruyenapi.com',
         domain_cdn_read: '',
         middle_domain: '/uploads/comics/',
@@ -195,7 +195,7 @@ const vueApp = new Vue({
                     console.log(response.data.totalChaps)
                     this.dataUserTotalChaps = response.data.totalChaps.total_chaps || 0;
 
-                    
+
                     sessionStorage.setItem('dataUserTotalChaps', JSON.stringify(this.dataUserTotalChaps));
                 } else {
                     alert('Có lỗi xảy ra khi đăng ký');
@@ -314,6 +314,18 @@ const vueApp = new Vue({
             this.isLogin = false;
             sessionStorage.setItem('isLogin', JSON.stringify(this.isLogin));
             window.location.href = `${this.DOMAIN}login`;
+        },
+        switchServer(id) {
+            let currentUrl = new URL(window.location.href); // Lấy URL hiện tại
+            console.log("URL hiện tại:", currentUrl.href);
+            console.log("ID Server:", id);
+
+            // Thay đổi phần hostname
+            let newHost = currentUrl.hostname.replace(/comic-sv\d+/, `comic-sv${id}`);
+            currentUrl.hostname = newHost;
+
+            // Chuyển hướng đến URL mới
+            window.location.href = currentUrl.href;
         },
         async login() {
             if (this.loginEmail && this.loginPassword) {
@@ -488,7 +500,7 @@ const vueApp = new Vue({
             //     console.log('hhh')
             //     $('#icUser').css('color', '#15fd00');
             // }
-            
+
             console.log(this.dataUserTotalChaps);
         }
     },
