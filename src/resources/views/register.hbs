@@ -11,19 +11,23 @@
         <form @submit.prevent="signup">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="username" v-model="username" placeholder="Nhập tên" required>
+                <input type="text" class="form-control" id="username" v-model="username" placeholder="Nhập tên"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="signupEmail" v-model="signupEmail" placeholder="Nhập email" required>
+                <input type="email" class="form-control" id="signupEmail" v-model="signupEmail" placeholder="Nhập email"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Mật khẩu</label>
-                <input type="password" class="form-control" id="signupPassword" v-model="signupPassword" placeholder="Nhập mật khẩu" required>
+                <input type="password" class="form-control" id="signupPassword" v-model="signupPassword"
+                    placeholder="Nhập mật khẩu" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Nhập lại mật khẩu</label>
-                <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+                <input type="password" class="form-control" id="confirmPassword" v-model="confirmPassword"
+                    placeholder="Nhập lại mật khẩu" required>
             </div>
             <div class="d-flex justify-content-center mb-3">
                 <a :href="DOMAIN+'login'" class="text-decoration-none">Đã có tài khoản? Đăng nhập</a>
@@ -32,4 +36,21 @@
         </form>
     </div>
 
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationModalLabel">Thông báo</h5>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationMessage">Nội dung thông báo sẽ hiển thị ở đây.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

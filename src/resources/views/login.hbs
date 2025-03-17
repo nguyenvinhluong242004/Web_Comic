@@ -11,11 +11,13 @@
         <form @submit.prevent="login">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="loginEmail" v-model="loginEmail" placeholder="Nhập email" required>
+                <input type="email" class="form-control" id="loginEmail" v-model="loginEmail" placeholder="Nhập email"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Mật khẩu</label>
-                <input type="password" class="form-control" id="loginPassword" v-model="loginPassword" placeholder="Nhập mật khẩu" required>
+                <input type="password" class="form-control" id="loginPassword" v-model="loginPassword"
+                    placeholder="Nhập mật khẩu" required>
             </div>
             <div class="d-flex justify-content-between mb-3">
                 <a href="#" class="text-decoration-none">Quên mật khẩu</a>
@@ -24,5 +26,21 @@
             <button type="submit" class="btn btn-warning w-100 fw-bold">Đăng nhập</button>
         </form>
     </div>
-
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationModalLabel">Thông báo</h5>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationMessage">Nội dung thông báo sẽ hiển thị ở đây.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

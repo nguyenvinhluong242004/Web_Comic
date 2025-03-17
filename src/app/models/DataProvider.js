@@ -153,7 +153,7 @@ class DataProvider {
             throw new Error('Lỗi truy vấn cơ sở dữ liệu');
         }
     }
-    
+
     static async getAllCommentChapter(id_truyen, id_chapter) {
         try {
             const result = await pool.query(
@@ -193,7 +193,7 @@ class DataProvider {
                  WHERE ID_User = $1`,
                 [id_user]
             );
-    
+
             console.log("Đã cập nhật Total_Chaps trong LevelUser");
         } catch (err) {
             console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
@@ -209,15 +209,45 @@ class DataProvider {
                  WHERE ID_User = $1`,
                 [id_user]
             );
-    
+
             return result.rows.length > 0 ? result.rows[0] : [];
         } catch (err) {
             console.error('Lỗi truy vấn cơ sở dữ liệu!', err);
             throw new Error('Lỗi truy vấn cơ sở dữ liệu');
         }
     }
-    
-    
+
+    static async changeCultivation(email, cultivation) {
+        try {
+            // Tìm ID_User dựa vào email
+            const user = await pool.query(
+                `SELECT ID_User FROM Users WHERE Email = $1`,
+                [email]
+            );
+
+            if (user.rows.length === 0) {
+                throw new Error("Không tìm thấy tài khoản với email này");
+            }
+
+            const id_user = user.rows[0].id_user;
+
+            // Cập nhật loại tu luyện
+            const result = await pool.query(
+                `UPDATE LevelUser 
+                 SET Type = $2
+                 WHERE ID_User = $1 
+                 RETURNING *`,
+                [id_user, cultivation]
+            );
+
+            return result.rows.length > 0 ? result.rows[0] : null;
+        } catch (err) {
+            console.error("Lỗi truy vấn cơ sở dữ liệu!", err);
+            throw new Error("Lỗi truy vấn cơ sở dữ liệu");
+        }
+    }
+
+
 }
 
 module.exports = DataProvider;

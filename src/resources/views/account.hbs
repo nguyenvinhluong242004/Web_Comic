@@ -32,8 +32,15 @@
                     <label for="level" class="form-label">Cấp độ</label>
                     <input type="text" id="level" class="form-control" :value="dataLevel.name" readonly>
                 </div>
-                <div class="mt-4">
-                    <button class="btn btn-warning">Change</button>
+            </div>
+            <!-- Lựa chọn tu tiên -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <label for="cultivation" class="form-label">Lựa chọn con đường tu luyện</label>
+                    <input type="text" id="cultivation" class="form-control" :value="dataLevel.type" readonly>
+                </div>
+                <div style="margin-top: 32px;">
+                    <button class="btn btn-warning" @click="getChangeInfo">Change</button>
                 </div>
             </div>
             <!-- Danh sách truyện yêu thích -->
@@ -60,4 +67,56 @@
             </div>
         </div>
     </div>
+    <!-- Modal chọn loại tu luyện -->
+    <div class="modal fade" id="cultivationModal" tabindex="-1" aria-labelledby="cultivationModalLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered"> <!-- Căn giữa modal -->
+            <div class="modal-content">
+                <!-- Tiêu đề Modal -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cultivationModalLabel">Chọn Loại Tu Luyện</h5>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Nội dung Modal -->
+                <div class="modal-body text-center">
+                    <p>Hãy chọn con đường tu luyện của bạn:</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button class="btn mr-2"
+                            :class="selectedCultivation === 'Tu tiên' ? 'btn-primary' : 'btn-outline-primary'"
+                            @click="selectCultivation('Tu tiên')">Tu tiên</button>
+
+                        <button class="btn ml-2"
+                            :class="selectedCultivation === 'Vũ trụ' ? 'btn-danger' : 'btn-outline-danger'"
+                            @click="selectCultivation('Vũ trụ')">Vũ trụ</button>
+                    </div>
+                </div>
+
+                <!-- Footer Modal -->
+                <div class="modal-footer">
+                    <button class="btn btn-success" @click="saveCultivation">Lưu</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationModalLabel">Thông báo</h5>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationMessage">Nội dung thông báo sẽ hiển thị ở đây.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

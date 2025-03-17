@@ -95,6 +95,10 @@
         <h5 style="color: #3b3838;">Nội dung truyện: [[ comicName ]]</h5>
     </div>
     <hr color="blue" style="margin: 2px;">
+    {{!-- <h5 style="color: #3b3838;" class="ml-2 mt-2">Cốt truyện</h5>
+    <div class="ml-2 mr-2 mb-4">
+        [[ description ]]
+    </div> --}}
     <h5 style="color: #3b3838;" class="ml-2 mt-2">Giới thiệu về LuongSoSad</h5>
     <div class="ml-2 mr-2 mb-4">
         Chào mừng bạn đến với website đọc truyện tranh online của LuongSoSad. Chi tiết về LuongSoSad là
@@ -218,7 +222,7 @@
                     <div class="" style="border: 1px solid black;">
                         <div class="d-flex align-items-center">
                             <h6 class="mb-0 m-2" style="color: rgb(0, 85, 255);">[[ cmt.username ]]</h6>
-                            <span class="badge bg-success" style="height: 20px;">Cấp [[ cmt.level ]]</span>
+                            <span class="badge bg-success" style="height: 20px;">Cấp [[ cmt.levelname ]]</span>
                         </div>
                         <hr color="gray" style="margin: 3px; height: 0.1px;">
                         <div class="m-2">
@@ -242,5 +246,23 @@
         </div>
     </div>
 
+    
+    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationModalLabel">Thông báo</h5>
+                    <button type="button" class="btn-close mt-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="notificationMessage">Nội dung thông báo sẽ hiển thị ở đây.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
