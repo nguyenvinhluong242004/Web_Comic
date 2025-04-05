@@ -1,3 +1,4 @@
 # Web_Comic
 
-# 'npx javascript-obfuscator src/public/js/vue-app.js --output src/public/js/lss.js --compact true'  : mã hóa
+Link Website: https://movie-sv1.onrender.com/
+              https://movie-sv2.onrender.com/
