@@ -1,4 +1,4 @@
 # Web_Comic
 
-Link Website: https://movie-sv1.onrender.com/
-              https://movie-sv2.onrender.com/
+Link Website: https://comic-sv1.onrender.com/
+              https://comic-sv2.onrender.com/
