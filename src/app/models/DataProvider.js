@@ -72,7 +72,7 @@ class DataProvider {
         try {
             // Truy vấn bảng ComicFavor để lấy tất cả truyện yêu thích của người dùng
             const result = await pool.query(
-                `SELECT cf.ID_Truyen, cf.Ten_Truyen
+                `SELECT cf.ID_Truyen, cf.Ten_Truyen, cf.Image
                 FROM ComicFavor cf
                 WHERE cf.ID_User = $1`,
                 [id_user]

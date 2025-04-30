@@ -44,20 +44,28 @@
                 </div>
             </div>
             <!-- Danh sách truyện yêu thích -->
-            <div class="mb-5">
+            <div class="mb-3">
                 <label for="favorite-list" class="form-label">Danh Sách Yêu Thích</label>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="favorite-list"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" @click="getListComicFavor">
                         Truyện yêu thích
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="favorite-list">
-                        <li v-for="comic in dataComicFavor" :key="comic.id_truyen">
-                            <a class="dropdown-item" :href="DOMAIN + 'detail-comic?id=' + comic.id_truyen">
-                                [[ comic.ten_truyen ]]
-                            </a>
-                        </li>
-                    </ul>
+                    <div v-if="isExpandList" class="list-comic-favor">
+                        <ul class="dropdown-menu-a">
+                            <li v-for="comic in dataComicFavor" :key="comic.id_truyen">
+                                <div class="d-flex" style="margin-top: 7px; justify-content: space-between;">
+                                    <a class="dropdown-item-a"
+                                        style="width: 100%; text-decoration: none; padding-left: 17px; padding-top: 17px;"
+                                        :href="DOMAIN + 'detail-comic?id=' + comic.id_truyen">
+                                        [[ comic.ten_truyen ]]
+                                    </a>
+                                    <img :src="comic.image"
+                                        style="height: 100px; min-width: 75px; width: 75px; margin-right: 5px; border-radius: 10px;"
+                                        alt="avt-comic">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
 
                 </div>
             </div>

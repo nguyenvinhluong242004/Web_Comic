@@ -231,3 +231,13 @@ body {
     background-color: #838383b2; 
     border: none;
 }
+
+.dropdown-menu-a {
+    list-style: none;
+    padding-left: 0;
+}
+
+.list-comic-favor {
+    max-height: 324px;
+    overflow-y: auto;
+}
