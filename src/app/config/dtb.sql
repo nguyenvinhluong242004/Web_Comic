@@ -64,6 +64,7 @@ CREATE TABLE ComicFavor (
     ID_User INT NOT NULL,
     ID_Truyen TEXT NOT NULL,
     Ten_Truyen TEXT NOT NULL,
+    Image TEXT NOT NULL,
     CONSTRAINT fk_user_favor FOREIGN KEY (ID_User) REFERENCES Users(ID_User)
 );
 

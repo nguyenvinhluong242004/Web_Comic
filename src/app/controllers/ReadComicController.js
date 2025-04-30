@@ -10,7 +10,7 @@ class ReadComicController {
 
     // [POST] /api/read-comic/favor
     async callAPIFavor(req, res) {
-        const { idUser, idTruyen, tenTruyen } = req.body;
+        const { idUser, idTruyen, tenTruyen, image } = req.body;
         console.log(idUser + idTruyen + tenTruyen)
 
         try {
@@ -23,7 +23,7 @@ class ReadComicController {
                 console.log('Truyện đã bị xóa khỏi danh sách yêu thích');
             } else {
                 // Nếu chưa có, thêm truyện vào danh sách yêu thích
-                await AuthFavor.addFavor(idUser, idTruyen, tenTruyen);
+                await AuthFavor.addFavor(idUser, idTruyen, tenTruyen, image);
                 console.log('Truyện đã được thêm vào danh sách yêu thích');
                 status = true;
             }
