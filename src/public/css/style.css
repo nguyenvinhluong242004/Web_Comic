@@ -193,6 +193,9 @@ body {
     flex: 0 0 calc(100% / 4);
     /* 20% mỗi cột khi màn hình lớn */
     max-width: calc(100% / 4);
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
 }
 
 @media (max-width: 1199.98px) {
