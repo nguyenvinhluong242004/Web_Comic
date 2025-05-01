@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center" style="width: 100%;">
-                    <div v-if="!fetching" class="row" style="width: 100%;">
+                    <div v-if="!fetching" class="row">
                         <div class="col-8 col-sm-6 col-md-4 col-lg-3 mb-4 col-xl-custom-type"
                             v-for="(comic, index) in comics_type_result_paginated" :key="index">
                             <div class="card-comic">
@@ -93,23 +93,6 @@
                         </div>
                     </div>
                 </div>
-
-                <nav>
-                    <ul class="pagination d-flex justify-content-center" style="cursor: pointer; width: 100%;">
-                        <li class="page-item" :class="{ disabled: page <= 1 }">
-                            <a class="page-link" @click="goPage(-1)">«</a>
-                        </li>
-
-                        <li class="page-item" v-for="pg in visiblePages" :key="pg" :class="{ active: pg === page }">
-                            <a class="page-link" @click="getPage(pg)">[[ pg
-                                ]]</a>
-                        </li>
-
-                        <li class="page-item" :class="{ disabled: page >= total_page }">
-                            <a class="page-link" @click="goPage(1)">»</a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
             <div class="list-type">
                 <div class="list-btn" style="width: 320px; margin-left: 20px;">
@@ -122,6 +105,22 @@
                 </div>
             </div>
         </div>
+        <nav class="nav-type">
+            <ul class="pagination d-flex justify-content-center" style="cursor: pointer; width: 100%;">
+                <li class="page-item" :class="{ disabled: page <= 1 }">
+                    <a class="page-link" @click="goPage(-1)">«</a>
+                </li>
+
+                <li class="page-item" v-for="pg in visiblePages" :key="pg" :class="{ active: pg === page }">
+                    <a class="page-link" @click="getPage(pg)">[[ pg
+                        ]]</a>
+                </li>
+
+                <li class="page-item" :class="{ disabled: page >= total_page }">
+                    <a class="page-link" @click="goPage(1)">»</a>
+                </li>
+            </ul>
+        </nav>
 
     </div>
 

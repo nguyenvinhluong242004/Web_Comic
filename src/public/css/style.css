@@ -100,6 +100,10 @@ body {
     }
 }
 
+.nav-type {
+    margin-right: 320px;
+}
+
 @media (max-width: 997px) {
     .navbar {
         display: none;
@@ -107,6 +111,10 @@ body {
 
     .list-type {
         display: none;
+    }
+
+    .nav-type {
+        margin-right: 0;
     }
 
     /* .btn-menu {
@@ -193,10 +201,8 @@ body {
     flex: 0 0 calc(100% / 4);
     /* 20% mỗi cột khi màn hình lớn */
     max-width: calc(100% / 4);
-    margin-left: 0px;
-    margin-right: 0px;
-    padding-left: 0px;
 }
+
 
 @media (max-width: 1199.98px) {
     .col-xl-custom {
@@ -207,7 +213,9 @@ body {
 }
 
 @media (max-width: 991.98px) {
-    .col-xl-custom, .col-xl-custom-type {
+
+    .col-xl-custom,
+    .col-xl-custom-type {
         flex: 0 0 calc(100% / 3);
         /* 33.33% mỗi cột khi màn hình trung bình */
         max-width: calc(100% / 3);
@@ -215,10 +223,21 @@ body {
 }
 
 @media (max-width: 767.98px) {
-    .col-xl-custom, .col-xl-custom-type {
+
+    .col-xl-custom,
+    .col-xl-custom-type {
         flex: 0 0 calc(100% / 2);
         /* 50% mỗi cột khi màn hình nhỏ */
         max-width: calc(100% / 2);
+    }
+}
+
+@media (max-width: 400px) {
+
+    .col-xl-custom,
+    .col-xl-custom-type {
+        /* 50% mỗi cột khi màn hình nhỏ */
+        max-width: 187.5px;
     }
 }
 
@@ -294,7 +313,7 @@ body {
 
 .list-btn {
     margin-top: 5px;
-    
+
 }
 
 .type-btn {
