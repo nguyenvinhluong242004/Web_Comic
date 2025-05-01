@@ -104,6 +104,14 @@ body {
     margin-right: 320px;
 }
 
+.list-btn {
+    margin-top: 5px;
+}
+
+.type-mobile, .list-btn-mobile {
+    display: none;
+}
+
 @media (max-width: 997px) {
     .navbar {
         display: none;
@@ -115,6 +123,14 @@ body {
 
     .nav-type {
         margin-right: 0;
+    }
+
+    .list-btn {
+        display: none;
+    }
+
+    .type-mobile, .list-btn-mobile {
+        display: flex;
     }
 
     /* .btn-menu {
@@ -306,15 +322,15 @@ body {
     margin-bottom: 3px;
 }
 
+.sort-btn:hover {
+    background-color: #c8c4c4;
+}
+
 .sort-btn.active {
     background-color: #ffa500;
     color: #fff;
 }
 
-.list-btn {
-    margin-top: 5px;
-
-}
 
 .type-btn {
     width: 160px;

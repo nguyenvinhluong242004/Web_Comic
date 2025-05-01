@@ -1,19 +1,33 @@
 <div class="result-search-comic p-2">
     <div class="list m-2">
-        <h4 class="mb-3" style="color: rgb(0, 85, 255);">LuongSoSad - Thể loại > [[ titlePage_type ]]</h4>
+        <h4 class="mb-3" style="color: rgb(0, 85, 255);">LuongSoSad - Thể loại >  [[ titlePage_type !== 'all' ? titlePage_type : 'Tất cả' ]]</h4>
 
 
         <!-- Danh sách truyện -->
         <div class="d-flex justify-content-between" style="width: 100%;">
             <div class="list-comic">
                 <div class=" mb-4">
-                    <h4 class="mb-3 text-center fw-semibold">Thể loại truyện tranh: [[ titlePage_type ]]</h4>
+                    <h4 class="mb-3 text-center fw-semibold">[[ titlePage_type !== 'all' ? 'Thể loại truyện tranh: ' + titlePage_type : 'Tất cả thể loại truyện tranh' ]]</h4>
 
                     <!-- Tabs: Tất cả, Hoàn thành, Đang tiến hành -->
                     <div class="d-flex justify-content-center mb-3">
                         <button class="btn tab-btn active">Tất cả</button>
                         <button class="btn tab-btn">Hoàn thành</button>
                         <button class="btn tab-btn">Đang tiến hành</button>
+                    </div>
+
+                    <!-- Chọn thể loại -->
+                    <div class="type-mobile justify-content-start mb-2">
+                        <div class="mb-2 fw-semibold" style="min-width: 110px;">Thể loại:</div>
+                        <div>
+                            <select class="form-select" v-model="titlePage_slug" @change="goToType(titlePage_slug)"
+                                style="font-size: 12px; min-width: 215px; height: 30px; border-radius: 7px;">
+                                <option value="all">Tất cả</option>
+                                <option v-for="type in comics_type" :key="type.slug" :value="type.slug">
+                                    [[ type.name ]]
+                                </option>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="d-flex">
@@ -27,7 +41,7 @@
                     </div>
 
                     <!-- Sắp xếp theo -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-start mt-2">
                         <div class="mb-2 fw-semibold" style="min-width: 110px;">Sắp xếp theo:</div>
                         <div>
                             <div class="list-btn">
@@ -44,6 +58,24 @@
                                 <button class="btn sort-btn"><i class="bi bi-eye"></i> Top tuần</button>
                                 <button class="btn sort-btn"><i class="bi bi-eye"></i> Top ngày</button>
                                 <button class="btn sort-btn"><i class="bi bi-star"></i> Top Follow</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="list-btn-mobile">
+                                <select class="form-select" v-model="field" @change="setFieldSort(field)"
+                                    style="font-size: 12px; min-width: 215px; height: 30px; border-radius: 7px;">
+                                    <option disabled selected value="null">Chọn kiểu sắp xếp</option>
+                                    <option value="updatedAt">Ngày cập nhật</option>
+                                    <option value="new">Truyện mới</option>
+                                    <option value="chapter">Số chapter</option>
+                                    <option value="follow">Theo dõi</option>
+                                    <option value="comment">Bình luận</option>
+                                    <option value="top_all">Top all</option>
+                                    <option value="top_month">Top tháng</option>
+                                    <option value="top_week">Top tuần</option>
+                                    <option value="top_day">Top ngày</option>
+                                    <option value="top_follow">Top Follow</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -97,9 +129,9 @@
             <div class="list-type">
                 <div class="list-btn" style="width: 320px; margin-left: 20px;">
                     <h5 style="margin-left: 10px; color: blue;">Thể loại</h5>
-                    <a :href="DOMAIN+'type?name=' + 'all' +'&page=1'" class="btn type-btn" style="width: 100%;">Tất
+                    <a :href="DOMAIN+'type?name=' + 'all' +'&page=1'" class="btn type-btn" style="width: 100%;" :class="{active : titlePage_slug == 'all'}">Tất
                         cả</a>
-                    <a v-for="type in comics_type" class="btn type-btn" :class="{active : titlePage_type == type.name}"
+                    <a v-for="type in comics_type" class="btn type-btn" :class="{active : titlePage_slug == type.slug}"
                         :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name ]]</a>
 
                 </div>
