@@ -48,52 +48,54 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-8 col-sm-6 col-md-4 col-lg-3 mb-4 col-xl-custom"
-                        v-for="(comic, index) in comics_type_result_paginated" :key="index">
-                        <div class="card-comic">
-                            <div class="card-comic-img">
-                                <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
-                                    <img :src="comic.image" :alt="comic.name">
-                                </a>
-                                <div class="info-comic">
-                                    <div class="d-flex justify-content-center">
-                                        <div class="d-flex mr-3">
-                                            <i style="font-size: 12px;" class="bi bi-eye mr-1"></i>
-                                            <div style="font-size: 12px;">174K</div>
-                                        </div>
-                                        <div class="d-flex mr-3">
-                                            <i style="font-size: 12px;" class="bi bi-chat-fill mr-1"></i>
-                                            <div style="font-size: 12px;">12K</div>
-                                        </div>
-                                        <div class="d-flex">
-                                            <i style="font-size: 12px;" class="bi bi-heart-fill mr-1"></i>
-                                            <div style="font-size: 12px;">204</div>
+                <div class="d-flex justify-content-center">
+                    <div v-if="!fetching" class="row justify-content-center" style="width: 100%;">
+                        <div class="col-8 col-sm-6 col-md-4 col-lg-3 mb-4 col-xl-custom-type"
+                            v-for="(comic, index) in comics_type_result_paginated" :key="index">
+                            <div class="card-comic">
+                                <div class="card-comic-img">
+                                    <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
+                                        <img :src="comic.image" :alt="comic.name">
+                                    </a>
+                                    <div class="info-comic">
+                                        <div class="d-flex justify-content-center">
+                                            <div class="d-flex mr-3">
+                                                <i style="font-size: 12px;" class="bi bi-eye mr-1"></i>
+                                                <div style="font-size: 12px;">174K</div>
+                                            </div>
+                                            <div class="d-flex mr-3">
+                                                <i style="font-size: 12px;" class="bi bi-chat-fill mr-1"></i>
+                                                <div style="font-size: 12px;">12K</div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <i style="font-size: 12px;" class="bi bi-heart-fill mr-1"></i>
+                                                <div style="font-size: 12px;">204</div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div style="font-size: 19px;">
-                                <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
-                                    [[ comic.name ]]
-                                </a>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div v-if="comic.chaptersLatest?.length > 0 && comic.chaptersLatest[0]?.chapter_name"
-                                    style="font-size: 14px;">
-                                    Chapter [[ comic.chaptersLatest[0].chapter_name ]]
+                                <div style="font-size: 19px;">
+                                    <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
+                                        [[ comic.name ]]
+                                    </a>
                                 </div>
-                                <i v-if="comic.updatedAt" style="font-size: 12px; color: #a2a1a1;">
-                                    [[ formatTimeDifference(comic.updatedAt) ]]
-                                </i>
-                            </div>
+                                <div class="d-flex justify-content-between">
+                                    <div v-if="comic.chaptersLatest?.length > 0 && comic.chaptersLatest[0]?.chapter_name"
+                                        style="font-size: 14px;">
+                                        Chapter [[ comic.chaptersLatest[0].chapter_name ]]
+                                    </div>
+                                    <i v-if="comic.updatedAt" style="font-size: 12px; color: #a2a1a1;">
+                                        [[ formatTimeDifference(comic.updatedAt) ]]
+                                    </i>
+                                </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <nav>
-                    <ul class="pagination justify-content-center" style="cursor: pointer;">
+                    <ul class="pagination justify-content-center" style="cursor: pointer; width: 100%;">
                         <li class="page-item" :class="{ disabled: page <= 1 }">
                             <a class="page-link" @click="goPage(-1)">«</a>
                         </li>
@@ -112,7 +114,8 @@
             <div class="list-type">
                 <div class="list-btn" style="width: 320px; margin-left: 20px;">
                     <h5 style="margin-left: 10px; color: blue;">Thể loại</h5>
-                    <a :href="DOMAIN+'type?name=' + 'all' +'&page=1'" class="btn type-btn" style="width: 100%;">Tất cả</a>
+                    <a :href="DOMAIN+'type?name=' + 'all' +'&page=1'" class="btn type-btn" style="width: 100%;">Tất
+                        cả</a>
                     <a v-for="type in comics_type" class="btn type-btn" :class="{active : titlePage_type == type.name}"
                         :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name ]]</a>
 
