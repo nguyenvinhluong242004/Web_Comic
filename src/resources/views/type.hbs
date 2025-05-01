@@ -2,69 +2,120 @@
     <div class="list m-2">
         <h4 class="mb-3" style="color: rgb(0, 85, 255);">LuongSoSad - Thể loại > [[ titlePage_type ]]</h4>
 
+
         <!-- Danh sách truyện -->
-        <div class="row">
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-custom mb-4"
-                v-for="(comic, index) in comics_type_result" :key="index">
-                <div class="card-comic">
-                    <div class="card-comic-img">
-                        <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
-                            <img :src="domain_image + '/' + imgage_comics[index]" :alt="comic.name">
-                        </a>
-                        <div class="info-comic">
-                            <div class="d-flex justify-content-center">
-                                <div class="d-flex mr-3">
-                                    <i style="font-size: 12px;" class="bi bi-eye mr-1"></i>
-                                    <div style="font-size: 12px;">174K</div>
-                                </div>
-                                <div class="d-flex mr-3">
-                                    <i style="font-size: 12px;" class="bi bi-chat-fill mr-1"></i>
-                                    <div style="font-size: 12px;">12K</div>
-                                </div>
-                                <div class="d-flex">
-                                    <i style="font-size: 12px;" class="bi bi-heart-fill mr-1"></i>
-                                    <div style="font-size: 12px;">204</div>
-                                </div>
+        <div class="d-flex justify-content-between">
+            <div class="list-comic">
+                <div class=" mb-4">
+                    <h4 class="mb-3 text-center fw-semibold">Thể loại truyện tranh: [[ titlePage_type ]]</h4>
+
+                    <!-- Tabs: Tất cả, Hoàn thành, Đang tiến hành -->
+                    <div class="d-flex justify-content-center mb-3">
+                        <button class="btn tab-btn active">Tất cả</button>
+                        <button class="btn tab-btn">Hoàn thành</button>
+                        <button class="btn tab-btn">Đang tiến hành</button>
+                    </div>
+
+                    <div class="d-flex">
+                        <div class="mb-2 fw-semibold" style="width: 110px;">Filter:</div>
+                        <div class="d-flex" style="justify-content: flex-start;">
+                            <button class="btn sort-btn mr-1 active">Tăng dần</button>
+                            <button class="btn sort-btn">Giảm dần</button>
+                        </div>
+                    </div>
+
+                    <!-- Sắp xếp theo -->
+                    <div class="d-flex justify-content-between">
+                        <div class="mb-2 fw-semibold" style="min-width: 110px;">Sắp xếp theo:</div>
+                        <div>
+                            <div class="list-btn">
+                                <button class="btn sort-btn active">Ngày cập nhật</button>
+                                <button class="btn sort-btn">Truyện mới</button>
+                                <button class="btn sort-btn"><i class="bi bi-eye"></i> Top all</button>
+                                <button class="btn sort-btn"><i class="bi bi-eye"></i> Top tháng</button>
+                                <button class="btn sort-btn"><i class="bi bi-eye"></i> Top tuần</button>
+                                <button class="btn sort-btn"><i class="bi bi-eye"></i> Top ngày</button>
+                                <button class="btn sort-btn"><i class="bi bi-heart"></i> Theo dõi</button>
+                                <button class="btn sort-btn"><i class="bi bi-chat"></i> Bình luận</button>
+                                <button class="btn sort-btn"><i class="bi bi-list-ol"></i> Số chapter</button>
+                                <button class="btn sort-btn"><i class="bi bi-star"></i> Top Follow</button>
                             </div>
                         </div>
                     </div>
-                    <div style="font-size: 19px;">
-                        <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
-                            [[ comic.name ]]
-                        </a>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div v-if="comic.chaptersLatest?.length > 0 && comic.chaptersLatest[0]?.chapter_name"
-                            style="font-size: 14px;">
-                            Chapter [[ comic.chaptersLatest[0].chapter_name ]]
+                </div>
+                <div class="row">
+                    <div class="col-8 col-sm-6 col-md-4 col-lg-3 mb-4 col-xl-custom" v-for="(comic, index) in comics_type_result"
+                        :key="index">
+                        <div class="card-comic">
+                            <div class="card-comic-img">
+                                <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
+                                    <img :src="domain_image + '/' + imgage_comics[index]" :alt="comic.name">
+                                </a>
+                                <div class="info-comic">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-flex mr-3">
+                                            <i style="font-size: 12px;" class="bi bi-eye mr-1"></i>
+                                            <div style="font-size: 12px;">174K</div>
+                                        </div>
+                                        <div class="d-flex mr-3">
+                                            <i style="font-size: 12px;" class="bi bi-chat-fill mr-1"></i>
+                                            <div style="font-size: 12px;">12K</div>
+                                        </div>
+                                        <div class="d-flex">
+                                            <i style="font-size: 12px;" class="bi bi-heart-fill mr-1"></i>
+                                            <div style="font-size: 12px;">204</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="font-size: 19px;">
+                                <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
+                                    [[ comic.name ]]
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div v-if="comic.chaptersLatest?.length > 0 && comic.chaptersLatest[0]?.chapter_name"
+                                    style="font-size: 14px;">
+                                    Chapter [[ comic.chaptersLatest[0].chapter_name ]]
+                                </div>
+                                <i v-if="comic.updatedAt" style="font-size: 12px; color: #a2a1a1;">
+                                    [[ formatTimeDifference(comic.updatedAt) ]]
+                                </i>
+                            </div>
+
                         </div>
-                        <i v-if="comic.updatedAt" style="font-size: 12px; color: #a2a1a1;">
-                            [[ formatTimeDifference(comic.updatedAt) ]]
-                        </i>
                     </div>
+                </div>
+
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" :class="{ disabled: page <= 1 }">
+                            <a class="page-link"
+                                :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + (page - 1)">«</a>
+                        </li>
+
+                        <li class="page-item" v-for="pg in visiblePages" :key="pg" :class="{ active: pg === page }">
+                            <a class="page-link" :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + pg">[[ pg
+                                ]]</a>
+                        </li>
+
+                        <li class="page-item" :class="{ disabled: page >= total_page }">
+                            <a class="page-link"
+                                :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + (page + 1)">»</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="list-type">
+                <div class="list-btn" style="width: 320px; margin-left: 20px;">
+                    <h5 style="margin-left: 10px; color: blue;">Thể loại</h5>
+                    <a href="/" class="btn type-btn" style="width: 100%;">Tất cả</a>
+                    <a v-for="type in comics_type" class="btn type-btn" :class="{active : titlePage_type == type.name}"
+                        :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name ]]</a>
 
                 </div>
             </div>
         </div>
-
-
-
-        <nav>
-            <ul class="pagination justify-content-center">
-                <li class="page-item" :class="{ disabled: page <= 1 }">
-                    <a class="page-link" :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + (page - 1)">«</a>
-                </li>
-
-                <li class="page-item" v-for="pg in visiblePages" :key="pg" :class="{ active: pg === page }">
-                    <a class="page-link" :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + pg">[[ pg ]]</a>
-                </li>
-
-                <li class="page-item" :class="{ disabled: page >= total_page }">
-                    <a class="page-link" :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + (page + 1)">»</a>
-                </li>
-            </ul>
-        </nav>
-
 
     </div>
 
