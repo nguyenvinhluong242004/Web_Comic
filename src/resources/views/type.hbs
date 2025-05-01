@@ -19,8 +19,10 @@
                     <div class="d-flex">
                         <div class="mb-2 fw-semibold" style="width: 110px;">Filter:</div>
                         <div class="d-flex" style="justify-content: flex-start;">
-                            <button class="btn sort-btn mr-1 active">Tăng dần</button>
-                            <button class="btn sort-btn">Giảm dần</button>
+                            <button class="btn sort-btn mr-1" :class="{ active : direction === 'desc' }"
+                                @click="setDirectionSort('desc')">Giảm dần</button>
+                            <button class="btn sort-btn" :class="{ active : direction === 'asc' }"
+                                @click="setDirectionSort('asc')">Tăng dần</button>
                         </div>
                     </div>
 
@@ -29,27 +31,30 @@
                         <div class="mb-2 fw-semibold" style="min-width: 110px;">Sắp xếp theo:</div>
                         <div>
                             <div class="list-btn">
-                                <button class="btn sort-btn active">Ngày cập nhật</button>
-                                <button class="btn sort-btn">Truyện mới</button>
+                                <button class="btn sort-btn" :class="{ active : field === 'updatedAt' }"
+                                    @click="setFieldSort('updatedAt')">Ngày cập nhật</button>
+                                <button class="btn sort-btn" :class="{ active : field === 'new' }"
+                                    @click="setFieldSort('new')">Truyện mới</button>
+                                <button class="btn sort-btn" :class="{ active : field === 'chapter' }"
+                                    @click="setFieldSort('chapter')"><i class="bi bi-list-ol"></i> Số chapter</button>
+                                <button class="btn sort-btn"><i class="bi bi-heart"></i> Theo dõi</button>
+                                <button class="btn sort-btn"><i class="bi bi-chat"></i> Bình luận</button>
                                 <button class="btn sort-btn"><i class="bi bi-eye"></i> Top all</button>
                                 <button class="btn sort-btn"><i class="bi bi-eye"></i> Top tháng</button>
                                 <button class="btn sort-btn"><i class="bi bi-eye"></i> Top tuần</button>
                                 <button class="btn sort-btn"><i class="bi bi-eye"></i> Top ngày</button>
-                                <button class="btn sort-btn"><i class="bi bi-heart"></i> Theo dõi</button>
-                                <button class="btn sort-btn"><i class="bi bi-chat"></i> Bình luận</button>
-                                <button class="btn sort-btn"><i class="bi bi-list-ol"></i> Số chapter</button>
                                 <button class="btn sort-btn"><i class="bi bi-star"></i> Top Follow</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8 col-sm-6 col-md-4 col-lg-3 mb-4 col-xl-custom" v-for="(comic, index) in comics_type_result"
-                        :key="index">
+                    <div class="col-8 col-sm-6 col-md-4 col-lg-3 mb-4 col-xl-custom"
+                        v-for="(comic, index) in comics_type_result_paginated" :key="index">
                         <div class="card-comic">
                             <div class="card-comic-img">
                                 <a :href="DOMAIN+'detail-comic?id=' + comic.slug">
-                                    <img :src="domain_image + '/' + imgage_comics[index]" :alt="comic.name">
+                                    <img :src="comic.image" :alt="comic.name">
                                 </a>
                                 <div class="info-comic">
                                     <div class="d-flex justify-content-center">
@@ -88,20 +93,18 @@
                 </div>
 
                 <nav>
-                    <ul class="pagination justify-content-center">
+                    <ul class="pagination justify-content-center" style="cursor: pointer;">
                         <li class="page-item" :class="{ disabled: page <= 1 }">
-                            <a class="page-link"
-                                :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + (page - 1)">«</a>
+                            <a class="page-link" @click="goPage(-1)">«</a>
                         </li>
 
                         <li class="page-item" v-for="pg in visiblePages" :key="pg" :class="{ active: pg === page }">
-                            <a class="page-link" :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + pg">[[ pg
+                            <a class="page-link" @click="getPage(pg)">[[ pg
                                 ]]</a>
                         </li>
 
                         <li class="page-item" :class="{ disabled: page >= total_page }">
-                            <a class="page-link"
-                                :href="DOMAIN + 'type?name=' + comicNameType + '&page=' + (page + 1)">»</a>
+                            <a class="page-link" @click="goPage(1)">»</a>
                         </li>
                     </ul>
                 </nav>
@@ -109,7 +112,7 @@
             <div class="list-type">
                 <div class="list-btn" style="width: 320px; margin-left: 20px;">
                     <h5 style="margin-left: 10px; color: blue;">Thể loại</h5>
-                    <a href="/" class="btn type-btn" style="width: 100%;">Tất cả</a>
+                    <a :href="DOMAIN+'type?name=' + 'all' +'&page=1'" class="btn type-btn" style="width: 100%;">Tất cả</a>
                     <a v-for="type in comics_type" class="btn type-btn" :class="{active : titlePage_type == type.name}"
                         :href="DOMAIN+'type?name=' + type.slug+'&page=1'">[[ type.name ]]</a>
 

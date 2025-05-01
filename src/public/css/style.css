@@ -278,10 +278,6 @@ body {
     margin-bottom: 3px;
 }
 
-.sort-btn i {
-    
-}
-
 .sort-btn.active {
     background-color: #ffa500;
     color: #fff;
