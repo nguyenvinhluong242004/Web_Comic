@@ -27,6 +27,7 @@
 ### 📌 Ghi chú
 - Dự án được xây dựng với mục đích học tập và rèn luyện kỹ năng.  
 - Không sử dụng cho mục đích thương mại.
+- API comic sử dụng từ bên thứ 3 cung cấp.
 
 ---
 
